@@ -23,8 +23,14 @@ export class CalendarService {
 
   getSelectedMonthStartDate(month: number): number {
     const firstOfMonth = new Date(2025, month, 1);
-    console.log("First of month: ", firstOfMonth.getDay());
+    console.log("First day (index) of month: ", firstOfMonth.getDay());
     return firstOfMonth.getDay();
+  }
+
+  getSelectedMonthLastDate(month: number): number {
+    const lastOfMonth = new Date(2025, month + 1, 0);
+    console.log("Last day (index) of month: ", lastOfMonth.getDate());
+    return lastOfMonth.getDate();
   }
 
   setSelectedDate(index: number): void {

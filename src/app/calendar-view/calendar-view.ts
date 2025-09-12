@@ -17,24 +17,32 @@ export class CalendarView {
   public selectedMonthIndex: number;
   public selectedDay: number = 0;
   public selectedMonthFirstDayIndex = signal<number>(0);
+  public selectedMonthLastDayIndex = signal<number>(0);
 
   constructor(
     private calendarService: CalendarService
   ) {
     this.selectedMonthIndex = this.calendarService.currentMonthIndex();
     this.selectedMonthFirstDayIndex.set(this.calendarService.getSelectedMonthStartDate(this.selectedMonthIndex));
+    this.selectedMonthLastDayIndex.set(this.calendarService.getSelectedMonthLastDate(this.selectedMonthIndex));
   }
 
   setSelectedMonthIndex(index: number): void {
     this.calendarService.setSelectedMonth(index);
     this.setSelectedMonthFirstDayIndex(index);
+    this.setSelectedMonthLastDayIndex(index);
   }
 
   setSelectedMonthFirstDayIndex(monthIndex: number): void {
     this.selectedMonthFirstDayIndex.set(this.calendarService.getSelectedMonthStartDate(monthIndex));
   }
 
+  setSelectedMonthLastDayIndex(monthIndex: number): void {
+    this.selectedMonthLastDayIndex.set(this.calendarService.getSelectedMonthLastDate(monthIndex));
+    console.log(this.selectedMonthLastDayIndex());
+  }
+
   isValidCalendarDay(day: number): boolean {
-    return day - this.selectedMonthFirstDayIndex() + 1 < 0;
+    return day - this.selectedMonthFirstDayIndex() + 1 < 0 || day >= this.selectedMonthLastDayIndex() + this.selectedMonthFirstDayIndex() - 1;
   }
 }
