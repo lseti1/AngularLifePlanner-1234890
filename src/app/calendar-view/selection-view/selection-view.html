@@ -1,0 +1,31 @@
+<div class="absolute flex items-center left-0 top-0 w-full h-full justify-center bg-black/5">
+    <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="relative flex flex-col justify-start items-center bg-white w-[55%] h-[55%] shadow-sm p-8 gap-4">
+        <h1 class="text-3xl">Viewing Plans for: </h1>
+        <div class="w-full overflow-auto">
+            <ul class="flex flex-col break-words w-full gap-1">
+                    @for (plan of selectedDatePlans; track plan) {
+                        <li class="flex flex-col border bg-gray-100 p-2 gap-2 hover:bg-gray-200 cursor-pointer">
+                            <div class="flex flex-row justify-between">
+                                <p class="flex items-center justify-center">{{ plan }}</p>
+                                <div class="flex flex-row gap-2">
+                                    <button type="button" class="red-btn">Remove</button>
+                                    <button type="button" class="blue-btn">Mark Complete</button>
+                                </div>
+                            </div>
+                        </li>
+                    }
+            </ul>
+        </div>
+        <div [ngClass]="{'hidden' : selectionViewType() !== 'adding'}" class="w-full flex flex-row gap-2">
+            <input  [(ngModel)]="plan" name="planText" id="planText" type="text" class="bg-white border w-full px-2" placeholder="Enter Plan Here..."/>
+            <button [ngClass]="{'opacity-20 pointer-pointer-events-none' : plan === '' }" type="button" class="black-btn" (click)="onClear()">Clear</button>
+            <button (click)="onAddPlan()" type="button" class="blue-btn">Add Plan</button>
+        </div>
+        
+        <div class="flex flex-row gap-4">
+            <button (click)="toggleSelectionView('adding')" type="button" class="blue-btn">{{ AddPlansText() }}</button>
+            <button type="submit" class="green-btn">Save</button>
+        </div>
+        <button type="submit" class="absolute top-2 right-4 text-2xl font-semibold hover:text-black/50">X</button>
+    </form>
+</div>

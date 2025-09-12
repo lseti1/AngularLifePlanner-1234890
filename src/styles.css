@@ -2,3 +2,36 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .shadow-lg {
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+  }
+
+  .shadow-md {
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  .shadow-sm {
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .text-shadow {
+    text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+  }
+
+  .black-btn {
+    @apply bg-black min-w-[6rem] hover:bg-gray-700 p-2 text-base text-white select-none;
+  }
+
+  .blue-btn {
+    @apply bg-blue-800 min-w-[6rem] hover:bg-blue-900 p-2 text-base text-white select-none;
+  }
+
+  .green-btn {
+    @apply bg-green-700 min-w-[6rem] hover:bg-green-800 p-2 text-base text-white select-none;
+  }
+
+  .red-btn {
+    @apply bg-red-700 min-w-[6rem] hover:bg-red-800 p-2 text-base text-white select-none;
+  }
+}
