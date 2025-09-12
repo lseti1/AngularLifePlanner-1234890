@@ -1,10 +1,27 @@
 <div class="absolute flex items-center left-0 top-0 w-full h-full justify-center bg-black/5">
-    <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="flex flex-col justify-start items-center bg-white w-[50%] h-[50%] shadow-sm p-8 gap-4">
-        <h1 class="text-3xl">Editing Plan for: </h1>
-        <input class="bg-white border w-full h-full text-center"/>
-        <div class="flex flex-row gap-4">
-            <button type="submit" class="blue-btn">Save</button>
-            <button [ngClass]="selectedPlanText === '' ? 'opacity-20 pointer-events-none' : ''" type="button" class="black-btn" (click)="onClear()">Clear</button>
+    <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="relative flex flex-col justify-start items-center bg-white w-[55%] h-[55%] shadow-sm p-8 gap-4">
+        <h1 class="text-3xl">Viewing Plans for: </h1>
+        <div class="w-full overflow-auto">
+            <ul class="flex flex-col break-words w-full gap-1">
+                    @for (plan of selectedDatePlans; track plan) {
+                        <li class="flex flex-col border bg-gray-100 p-2 gap-2 ">
+                            <div class="flex flex-row justify-between">
+                                <p class="flex items-center justify-center">{{ plan }}</p>
+                                <div class="flex flex-row gap-2">
+                                    <button type="button" class="red-btn">Remove</button>
+                                    <button type="button" class="blue-btn">Mark Complete</button>
+                                </div>
+                            </div>
+                        </li>
+                    }
+            </ul>
         </div>
+        <input [(ngModel)]="plan" name="planText" id="planText" type="text" class="hidden bg-white border w-full text-center"/>
+        <div class="flex flex-row gap-4">
+            <button type="button" class="blue-btn">Add Plans</button>
+            <button [ngClass]="{'opacity-20 pointesr-pointer-events-none' : plan === '' }" type="button" class="hidden black-btn" (click)="onClear()">Clear</button>
+            <button type="submit" class="hidden green-btn">Save</button>
+        </div>
+        <button type="submit" class="absolute top-2 right-4 text-2xl font-semibold hover:text-black/50">X</button>
     </form>
 </div>

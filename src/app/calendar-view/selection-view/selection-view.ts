@@ -10,7 +10,8 @@ import { CalendarService } from '../../services/calendar-service';
   styleUrl: './selection-view.css'
 })
 export class SelectionView {
-  public selectedPlanText: string = '';
+  public selectedDatePlans: string[] = ['Do Chores before Church on Sunday', 'Complete Homework', 'Practice Music', 'Complete Homework', 'Practice Music', 'Complete Homework', 'Practice Music'];
+  public plan: string = '';
 
   constructor(
     private calendarService: CalendarService
@@ -18,7 +19,7 @@ export class SelectionView {
   }
 
   onClear(): void {
-    this.selectedPlanText = '';
+    this.plan = '';
   }
 
   onSubmit(formData: NgForm): void {

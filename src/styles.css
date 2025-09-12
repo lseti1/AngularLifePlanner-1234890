@@ -24,11 +24,11 @@
   }
 
   .blue-btn {
-    @apply bg-blue-600 min-w-[6rem] rounded hover:bg-blue-800 p-2 text-base text-white select-none;
+    @apply bg-blue-800 min-w-[6rem] rounded hover:bg-blue-900 p-2 text-base text-white select-none;
   }
 
   .green-btn {
-    @apply bg-green-600 min-w-[6rem] rounded hover:bg-green-800 p-2 text-base text-white select-none;
+    @apply bg-green-700 min-w-[6rem] rounded hover:bg-green-800 p-2 text-base text-white select-none;
   }
 
   .red-btn {
