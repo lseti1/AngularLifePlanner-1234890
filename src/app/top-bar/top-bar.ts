@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core'; 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { CalendarService } from '../services/calendar-service';
 
 @Component({
   selector: 'app-top-bar',
@@ -10,6 +11,12 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
   styleUrl: './top-bar.css'
 })
 export class TopBar {
-  public currentDate: Date = new Date();
   public faUser = faUser;
+  public currentDate: Date;
+
+  constructor(
+    private calendarService: CalendarService
+  ) {
+    this.currentDate = this.calendarService.getCurrentDate();
+  }
 }

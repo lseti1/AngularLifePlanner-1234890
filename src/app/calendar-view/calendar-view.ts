@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
+import { CalendarService } from '../services/calendar-service';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-calendar-view',
-  imports: [],
+  imports: [FormsModule, CommonModule],
   templateUrl: './calendar-view.html',
   styleUrl: './calendar-view.css'
 })
@@ -11,6 +14,27 @@ export class CalendarView {
   public daysOfWeek: string[] = [ 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   public days: number[] = Array.from({ length: 42 }, (_, i) => i + 1);
 
-  public selectedMonth: number = 0;
+  public selectedMonthIndex: number;
   public selectedDay: number = 0;
+  public selectedMonthFirstDayIndex = signal<number>(0);
+
+  constructor(
+    private calendarService: CalendarService
+  ) {
+    this.selectedMonthIndex = this.calendarService.currentMonthIndex();
+    this.selectedMonthFirstDayIndex.set(this.calendarService.getSelectedMonthStartDate(this.selectedMonthIndex));
+  }
+
+  setSelectedMonthIndex(index: number): void {
+    this.calendarService.setSelectedMonth(index);
+    this.setSelectedMonthFirstDayIndex(index);
+  }
+
+  setSelectedMonthFirstDayIndex(monthIndex: number): void {
+    this.selectedMonthFirstDayIndex.set(this.calendarService.getSelectedMonthStartDate(monthIndex));
+  }
+
+  isValidCalendarDay(day: number): boolean {
+    return day - this.selectedMonthFirstDayIndex() + 1 < 0;
+  }
 }
