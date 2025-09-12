@@ -49,7 +49,8 @@ export class CalendarView {
     return day - this.selectedMonthFirstDayIndex() + 1 < 0 || day >= this.selectedMonthLastDayIndex() + this.selectedMonthFirstDayIndex() - 1;
   }
 
-  toggleHasSelectedDate(): void {
+  toggleHasSelectedDate(calendarIndex: number): void {
     this.calendarService.setHasSelectedDate(true);
+    this.calendarService.setSelectedDate(calendarIndex);
   }
 }
