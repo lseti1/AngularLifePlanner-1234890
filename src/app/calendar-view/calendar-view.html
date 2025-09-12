@@ -1,5 +1,5 @@
 <div class="w-full h-full flex items-center justify-center">
-    <div class="border w-[90%] h-[90%] ">
+    <div class="border w-[90%] h-[90%] shadow-sm">
         <div class="border flex items-center justify-center h-[8%]">
             <select class="text-3xl bg-white text-center border-b-2 border-blue-800/0 hover:border-blue-800 cursor-pointer duration-500">
                 @for (month of months; track month) {
@@ -17,7 +17,7 @@
         <div class="border h-[87%]">
             <ul class="grid grid-cols-7 grid-rows-6 h-full w-full">
                 @for (day of days; track day) {
-                    <li class="border p-2 hover:bg-blue-700 hover:text-white duration-500 cursor-pointer select-none">{{ day }}</li>
+                    <li class="border p-2 hover:bg-blue-800 hover:text-white duration-500 cursor-pointer select-none">{{ day }}</li>
                 }
             </ul>
         </div>
