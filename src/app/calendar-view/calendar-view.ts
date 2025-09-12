@@ -15,8 +15,8 @@ export class CalendarView {
   public daysOfWeek: string[] = [ 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   public days: number[] = Array.from({ length: 42 }, (_, i) => i + 1);
 
-  public selectedMonthIndex: number;
-  public selectedDay: number = 0;
+  public selectedMonthIndex = signal<number>(0);
+  public selectedDay= signal<number>(0);
   public selectedMonthFirstDayIndex = signal<number>(0);
   public selectedMonthLastDayIndex = signal<number>(0);
 
@@ -25,9 +25,9 @@ export class CalendarView {
   constructor(
     private calendarService: CalendarService
   ) {
-    this.selectedMonthIndex = this.calendarService.currentMonthIndex();
-    this.selectedMonthFirstDayIndex.set(this.calendarService.getSelectedMonthStartDate(this.selectedMonthIndex));
-    this.selectedMonthLastDayIndex.set(this.calendarService.getSelectedMonthLastDate(this.selectedMonthIndex));
+    this.selectedMonthIndex.set(this.calendarService.currentMonthIndex());
+    this.selectedMonthFirstDayIndex.set(this.calendarService.getSelectedMonthStartDate(this.selectedMonthIndex()));
+    this.selectedMonthLastDayIndex.set(this.calendarService.getSelectedMonthLastDate(this.selectedMonthIndex()));
   }
 
   setSelectedMonthIndex(index: number): void {
@@ -52,5 +52,11 @@ export class CalendarView {
   toggleHasSelectedDate(calendarIndex: number): void {
     this.calendarService.setHasSelectedDate(true);
     this.calendarService.setSelectedDate(calendarIndex);
+  }
+
+  isCurrentDay(day: number): boolean {
+    const isToday = (day - this.selectedMonthFirstDayIndex() + 1) === this.calendarService.currentDate.getDate() - 1;
+    const isThisMonth = this.calendarService.currentMonthIndex() === this.selectedMonthIndex();
+    return isToday && isThisMonth;
   }
 }
