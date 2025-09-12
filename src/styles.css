@@ -20,18 +20,18 @@
   }
 
   .black-btn {
-    @apply bg-black min-w-[10rem] rounded hover:bg-gray-700 p-3 text-lg text-white select-none;
+    @apply bg-black min-w-[6rem] rounded hover:bg-gray-700 p-2 text-base text-white select-none;
   }
 
   .blue-btn {
-    @apply bg-blue-600 min-w-[10rem] rounded text-shadow hover:bg-blue-700 p-3 text-lg text-white select-none;
+    @apply bg-blue-600 min-w-[6rem] rounded hover:bg-blue-800 p-2 text-base text-white select-none;
   }
 
   .green-btn {
-    @apply bg-green-600 min-w-[10rem] rounded text-shadow hover:bg-green-700 p-3 text-lg text-white select-none;
-  } 
+    @apply bg-green-600 min-w-[6rem] rounded hover:bg-green-800 p-2 text-base text-white select-none;
+  }
 
   .red-btn {
-    @apply bg-red-700 min-w-[10rem] rounded text-shadow hover:bg-red-800 p-3 text-lg text-white select-none;
+    @apply bg-red-700 min-w-[6rem] rounded hover:bg-red-800 p-2 text-base text-white select-none;
   }
 }

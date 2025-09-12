@@ -1,11 +1,12 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { CalendarService } from '../services/calendar-service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { SelectionView } from './selection-view/selection-view';
 
 @Component({
   selector: 'app-calendar-view',
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, SelectionView],
   templateUrl: './calendar-view.html',
   styleUrl: './calendar-view.css'
 })
@@ -18,6 +19,8 @@ export class CalendarView {
   public selectedDay: number = 0;
   public selectedMonthFirstDayIndex = signal<number>(0);
   public selectedMonthLastDayIndex = signal<number>(0);
+
+  public hasSelectedDate = computed(() => this.calendarService.hasSelectedDate());
 
   constructor(
     private calendarService: CalendarService
@@ -44,5 +47,9 @@ export class CalendarView {
 
   isValidCalendarDay(day: number): boolean {
     return day - this.selectedMonthFirstDayIndex() + 1 < 0 || day >= this.selectedMonthLastDayIndex() + this.selectedMonthFirstDayIndex() - 1;
+  }
+
+  toggleHasSelectedDate(): void {
+    this.calendarService.setHasSelectedDate(true);
   }
 }

@@ -1,0 +1,10 @@
+<div class="absolute flex items-center left-0 top-0 w-full h-full justify-center bg-black/5">
+    <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="flex flex-col justify-start items-center bg-white w-[50%] h-[50%] shadow-sm p-8 gap-4">
+        <h1 class="text-3xl">Editing Plan for: </h1>
+        <input class="bg-white border w-full h-full text-center"/>
+        <div class="flex flex-row gap-4">
+            <button type="submit" class="blue-btn">Save</button>
+            <button [ngClass]="selectedPlanText === '' ? 'opacity-20 pointer-events-none' : ''" type="button" class="black-btn" (click)="onClear()">Clear</button>
+        </div>
+    </form>
+</div>

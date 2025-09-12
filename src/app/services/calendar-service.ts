@@ -1,5 +1,4 @@
 import { Injectable, signal } from '@angular/core';
-import { first } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class CalendarService {
@@ -8,6 +7,8 @@ export class CalendarService {
 
   public selectedDateIndex: number = this.currentDate.getDate();
   public selectedMonthIndex: number = this.currentDate.getMonth();
+
+  public hasSelectedDate = signal<boolean>(false);
 
   getCurrentDate(): Date {
     return this.currentDate;
@@ -41,5 +42,10 @@ export class CalendarService {
   setSelectedMonth(index: number): void {
     this.selectedMonthIndex = index;
     console.log(this.selectedMonthIndex);
+  }
+
+  setHasSelectedDate(value: boolean): void {
+    this.hasSelectedDate.set(value);
+    console.log("Has Selected Date: ", this.hasSelectedDate());
   }
 }
