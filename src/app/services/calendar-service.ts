@@ -7,11 +7,22 @@ export class CalendarService {
 
   public selectedDateIndex = signal<number>(this.currentDate.getDate());
   public selectedMonthIndex = signal<number>(this.currentDate.getMonth());
+  public selectedMonthFirstDayIndex = signal<number>(0);
+  public selectedMonthLastDayIndex = signal<number>(0);
 
   public hasSelectedDate = signal<boolean>(false);
 
+  constructor() {
+    this.selectedMonthFirstDayIndex.set(this.getSelectedMonthStartDate(this.currentMonthIndex()));
+    this.selectedMonthLastDayIndex.set(this.getSelectedMonthLastDate(this.currentMonthIndex()));
+  }
+
   getCurrentDate(): Date {
     return this.currentDate;
+  }
+
+  getCurrentMonthIndex(): number {
+    return this.currentMonthIndex();
   }
 
   getCurrentDateMonth(): number {
@@ -41,11 +52,17 @@ export class CalendarService {
 
   setSelectedMonth(index: number): void {
     this.selectedMonthIndex.set(index);
+    this.selectedMonthFirstDayIndex.set(this.getSelectedMonthStartDate(index));
+    this.selectedMonthLastDayIndex.set(this.getSelectedMonthLastDate(index));
     console.log("Selected Month Index:", this.selectedMonthIndex);
   }
 
   setHasSelectedDate(value: boolean): void {
     this.hasSelectedDate.set(value);
     console.log("Has Selected Date: ", this.hasSelectedDate());
+  }
+
+  setSelectedMonthToCurrent(): void {
+    this.selectedMonthIndex = this.currentMonthIndex;
   }
 }

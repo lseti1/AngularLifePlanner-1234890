@@ -18,7 +18,8 @@ export type selectionViewType = 'viewing' | 'adding' | 'editing';
 })
 export class SelectionView {
   @Input() months: string[] = [];
-  @Input() selectedMonthFirstDayIndex: number = 0;
+
+  public selectedMonthFirstDayIndex;
 
   public faCheckCircle = faCheckCircle;
 
@@ -32,7 +33,9 @@ export class SelectionView {
   constructor(
     private calendarService: CalendarService,
     private localStorageService: LocalStorageService
-  ) {}
+  ) {
+    this.selectedMonthFirstDayIndex = this.calendarService.getSelectedMonthStartDate(this.calendarService.selectedMonthIndex());
+  }
 
   get selectedDateIndex(): number {
     return this.calendarService.selectedDateIndex() - this.selectedMonthFirstDayIndex + 1;
