@@ -16,6 +16,11 @@ export class Today {
     private calendarService: CalendarService
   ) {}
 
+  get todaysPlanButtonText(): string {
+    const plans = this.todaysPlan();
+    return plans.length <= 5 ? "Add plan for today" : `View ${plans.length - 5} more`;
+  }
+
   updateTodaysPlan(): Plan[] {
     const day = this.calendarService.getCurrentDateDay();
     const month = this.calendarService.currentMonthIndex();
@@ -26,5 +31,11 @@ export class Today {
     );
 
     return block ? [...block.plans] : [];
+  }
+
+  toggleViewToday(): void {
+    this.calendarService.setHasSelectedDate(true);
+    const day = this.calendarService.getCurrentDateDay();
+    this.calendarService.setSelectedDate(day);
   }
 }

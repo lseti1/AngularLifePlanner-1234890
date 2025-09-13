@@ -9,10 +9,6 @@
                 @if (tomorrowsPlan().length === 0) { <p>No plans today. Click below to add a plan.</p>}
             </ul>
         </div>
-        @if (tomorrowsPlan().length <= 5) { 
-            <button class="blue-btn">Add plan for tomorrow</button>
-        } @else {
-            <button class="blue-btn">View {{ tomorrowsPlan().length - 5}} more</button>
-        }
+        <button (click)="toggleViewTomorrow()" class="blue-btn">{{ tomorrowsPlanButtonText }}</button>
     </div>
 </div>
