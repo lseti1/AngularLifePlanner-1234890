@@ -3,6 +3,7 @@ import { Component, computed, Input, signal } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CalendarService } from '../../services/calendar-service';
 import { OrdinalPipePipe } from '../../pipes/ordinal-pipe-pipe';
+import { LocalStorageService } from '../../services/local-storage-service';
 
 export type selectionViewType = 'viewing' | 'adding' | 'editing';
 
@@ -23,7 +24,8 @@ export class SelectionView {
   public AddPlansText = computed(() => this.selectionViewType() !== 'adding' ? 'Add Plans' : 'Finish Adding');
 
   constructor(
-    private calendarService: CalendarService
+    private calendarService: CalendarService,
+    private localStorageService: LocalStorageService
   ) {
   }
 
@@ -31,8 +33,8 @@ export class SelectionView {
     return this.calendarService.selectedDateIndex() - this.selectedMonthFirstDayIndex + 1;
   }
 
-  get selectedMonthIndex(): string {
-    return this.months[this.calendarService.selectedMonthIndex()];
+  get selectedMonthIndex(): number {
+    return this.calendarService.selectedMonthIndex();
   }
 
   onClear(): void {
@@ -45,7 +47,8 @@ export class SelectionView {
     console.log("onSubmit pressed");
   }
 
-  onAddPlan(): void {
+  onAddPlan(date: number, month: number, plan: string): void {
+    this.localStorageService.addPlan(date, month, plan, false);
     this.plan = '';
   }
 

@@ -1,6 +1,6 @@
 <div class="absolute flex items-center left-0 top-0 w-full h-full justify-center bg-black/5">
     <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="relative flex flex-col justify-start items-center bg-white w-[55%] h-[55%] shadow-sm p-8 gap-4">
-        <h1 class="text-3xl">Viewing plans for {{ selectedMonthIndex }} {{ selectedDateIndex | ordinalPipe }} </h1>
+        <h1 class="text-3xl">Viewing plans for {{ months[selectedMonthIndex] }} {{ selectedDateIndex | ordinalPipe }} </h1>
         <div class="w-full overflow-auto">
             <ul class="flex flex-col break-words w-full gap-1">
                     @for (plan of selectedDatePlans; track plan) {
@@ -19,7 +19,7 @@
         <div [ngClass]="{'hidden' : selectionViewType() !== 'adding'}" class="w-full flex flex-row gap-2">
             <input  [(ngModel)]="plan" name="planText" id="planText" type="text" class="bg-white border w-full px-2" placeholder="Enter Plan Here..."/>
             <button [ngClass]="{'opacity-20 pointer-pointer-events-none' : plan === '' }" type="button" class="black-btn" (click)="onClear()">Clear</button>
-            <button [ngClass]="{'opacity-20 pointer-pointer-events-none' : plan === '' }" (click)="onAddPlan()" type="button" class="blue-btn">Add Plan</button>
+            <button [ngClass]="{'opacity-20 pointer-pointer-events-none' : plan === '' }" (click)="onAddPlan(selectedDateIndex, selectedMonthIndex, plan)" type="button" class="blue-btn">Add Plan</button>
         </div>
         
         <div class="flex flex-row gap-4">
