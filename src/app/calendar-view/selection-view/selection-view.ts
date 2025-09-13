@@ -4,6 +4,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { CalendarService } from '../../services/calendar-service';
 import { OrdinalPipePipe } from '../../pipes/ordinal-pipe-pipe';
 import { LocalStorageService } from '../../services/local-storage-service';
+import { Plan } from '../../services/local-storage-service';
 
 export type selectionViewType = 'viewing' | 'adding' | 'editing';
 
@@ -17,7 +18,7 @@ export class SelectionView implements OnInit {
   @Input() months: string[] = [];
   @Input() selectedMonthFirstDayIndex: number = 0;
 
-  public selectedDatePlans = signal<string[]>([]);
+  public selectedDatePlans = signal<Plan[]>([]);
   public plan: string = '';
 
   public selectionViewType = signal<selectionViewType>('viewing');
@@ -50,7 +51,7 @@ export class SelectionView implements OnInit {
       block => block.date === day && block.month === month && block.year === year
     );
 
-    this.selectedDatePlans.set(block ? block.plans.map(plan => plan.title) : []);
+    this.selectedDatePlans.set(block ? [...block.plans]: []);
   }
 
   onClear(): void {

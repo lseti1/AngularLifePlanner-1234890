@@ -1,18 +1,27 @@
 <div class="absolute flex items-center left-0 top-0 w-full h-full justify-center bg-black/5">
     <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="relative flex flex-col justify-start items-center bg-white w-[55%] h-[55%] shadow-sm p-8 gap-4">
         <h1 class="text-3xl">Viewing plans for {{ months[selectedMonthIndex] }} {{ selectedDateIndex | ordinalPipe }} </h1>
-        <div class="w-full overflow-auto">
-            <ul class="flex flex-col break-words w-full gap-1">
+        <div class="w-full overflow-auto h-full">
+            <ul class="flex flex-col break-words w-full gap-1 h-full">
                     @for (plan of selectedDatePlans(); track plan) {
                         <li class="flex flex-col border bg-gray-100 p-2 gap-2 hover:bg-gray-200 cursor-pointer">
                             <div class="flex flex-row justify-between">
-                                <p class="flex items-center justify-center">{{ plan }}</p>
+                                <p class="flex items-center justify-center">{{ plan.title }}</p>
                                 <div class="flex flex-row gap-2">
                                     <button type="button" class="red-btn">Remove</button>
-                                    <button type="button" class="blue-btn">Mark Complete</button>
+                                    @if (!plan.completed) {
+                                        <button type="button" class="blue-btn">Mark Complete</button>
+                                    } @else {
+                                        <button type="button" class="green-btn pointer-events-none">Completed</button>
+                                    }
                                 </div>
                             </div>
                         </li>
+                    } 
+                    @if (selectedDatePlans().length === 0) {
+                        <div class="flex items-center justify-center w-full h-full">
+                            <p class="text-2xl text-gray-400 text-center">No plans added for this date.<br  />Get started by adding one below.</p>
+                        </div>  
                     }
             </ul>
         </div>
