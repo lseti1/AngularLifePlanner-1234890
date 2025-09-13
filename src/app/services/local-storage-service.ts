@@ -79,4 +79,18 @@ export class LocalStorageService {
     plan.completed = !plan.completed;
     this.saveDateBlocks(blocks);
   }
+
+  removePlan(ID: string, date: number, month: number): void {
+    const year = 2025;
+    const storedDateBlocks = localStorage.getItem('appData');
+    const blocks: DateBlock[] = storedDateBlocks ? JSON.parse(storedDateBlocks) : [];
+
+    const block = blocks.find(block => block.date === date && block.month === month && block.year === year);
+    if (!block) return;
+
+    block.plans = block.plans.filter(plan => plan.id !== ID); // To remove the plan
+    const updatedBlocks = blocks.filter(block => block.plans.length > 0); // To remove any empty blocks with no plans
+
+    this.saveDateBlocks(updatedBlocks);
+  }
 }

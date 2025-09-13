@@ -72,6 +72,10 @@ export class SelectionView {
     this.localStorageService.togglePlanComplete(ID, date, month);
   }
 
+  onRemovePlan(ID: string, date: number, month: number): void {
+    this.localStorageService.removePlan(ID, date, month);
+  }
+
   toggleSelectionView(viewType: selectionViewType): void {
     this.selectionViewType.set(
       this.selectionViewType() === viewType ? 'viewing' : viewType
