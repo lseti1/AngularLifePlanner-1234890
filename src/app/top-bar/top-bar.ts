@@ -3,10 +3,11 @@ import { Component } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { CalendarService } from '../services/calendar-service';
+import { OrdinalPipePipe } from '../pipes/ordinal-pipe-pipe';
 
 @Component({
   selector: 'app-top-bar',
-  imports: [DatePipe, FontAwesomeModule],
+  imports: [DatePipe, FontAwesomeModule, OrdinalPipePipe],
   templateUrl: './top-bar.html',
   styleUrl: './top-bar.css'
 })

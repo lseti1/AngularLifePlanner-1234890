@@ -1,10 +1,17 @@
 <div class="flex flex-col w-full h-full px-4 py-2">
     <div class="bg-white p-2 border overflow-hidden flex flex-col justify-between h-full">
         <div>
-            <h1 class="text-2xl font-semibold border-b-2 border-blue-800">Happening Tomorrow</h1>
-            <ul class="text-lg list-disc list-inside break-words">
+            <div class="flex flex-row justify-between border-b-2 border-blue-800 text-2xl">
+                 <h1 class="font-semibold">Coming Up Tomorrow</h1>
+                 <p class="text-gray-400">{{ tomorrowDate | date: 'MMMM'}} {{ tomorrowDate.getDate() | ordinalPipe}}</p>
+            </div>
+            <ul class="text-lg break-words">
                 @for (plan of tomorrowsPlan().slice(0, 5); track plan) {
-                    <li>{{ plan.title }}</li>
+                    <li class="flex flex-row items-center gap-4 h-full">
+                        @if (plan.completed) { <fa-icon class="text-sm mt-0.5" [icon]="faCheckCircle"></fa-icon> }
+                        @else { <fa-icon class="text-sm mt-0.5" [icon]="faCheckCircleRegular"></fa-icon> }
+                        <p class="">{{ plan.title }}</p>
+                    </li>
                 }
             </ul>
         </div>
