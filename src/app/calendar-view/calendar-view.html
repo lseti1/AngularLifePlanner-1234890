@@ -18,7 +18,7 @@
             <ul class="grid grid-cols-7 grid-rows-6 h-full w-full">
                 @for (day of days; track day) {
                     <li 
-                        [ngClass]="{'text-white/0 pointer-events-none': isValidCalendarDay($index), 'opacity-20' : isPastMonthDay($index) , 'bg-gray-100' : isCurrentDay($index) }" 
+                        [ngClass]="{'text-white/0 pointer-events-none': isValidCalendarDay($index), 'opacity-20 pointer-events-none' : isPastMonthDay($index) , 'bg-gray-100' : isCurrentDay($index) }" 
                         (click)="toggleHasSelectedDate(day)" 
                         class="border p-2 hover:bg-blue-800 hover:text-white cursor-pointer select-none">
                         {{ day - selectedMonthFirstDayIndex() + 1}}
