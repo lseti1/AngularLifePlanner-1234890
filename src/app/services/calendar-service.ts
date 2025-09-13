@@ -5,8 +5,8 @@ export class CalendarService {
   public currentDate: Date = new Date();
   public currentMonthIndex = signal<number>(this.getCurrentDateMonth());
 
-  public selectedDateIndex: number = this.currentDate.getDate();
-  public selectedMonthIndex: number = this.currentDate.getMonth();
+  public selectedDateIndex = signal<number>(this.currentDate.getDate());
+  public selectedMonthIndex = signal<number>(this.currentDate.getMonth());
 
   public hasSelectedDate = signal<boolean>(false);
 
@@ -35,13 +35,13 @@ export class CalendarService {
   }
 
   setSelectedDate(index: number): void {
-    this.selectedDateIndex = index;
-    console.log(this.selectedDateIndex);
+    this.selectedDateIndex.set(index);
+    console.log("Selected Date Index:", this.selectedDateIndex);
   }
 
   setSelectedMonth(index: number): void {
-    this.selectedMonthIndex = index;
-    console.log(this.selectedMonthIndex);
+    this.selectedMonthIndex.set(index);
+    console.log("Selected Month Index:", this.selectedMonthIndex);
   }
 
   setHasSelectedDate(value: boolean): void {
