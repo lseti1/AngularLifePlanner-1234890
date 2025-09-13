@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 
 export interface Plan {
   id: string;
@@ -16,23 +16,31 @@ export interface DateBlock {
 
 @Injectable({ providedIn: 'root' })
 export class LocalStorageService {
-  private storageKey = 'appData';
+  public blocks = signal<DateBlock[]>([]);
 
+  private storageKey = 'appData';
+  
   constructor(
 
   ) {
     this.initialiseData();
+    this.blocks.set(this.loadFromStorage());
   }
 
-  private initialiseData() {
+  private initialiseData(): void {
     if (!localStorage.getItem(this.storageKey)) {
-      const emptyBlocks: DateBlock[] = [];
-      localStorage.setItem(this.storageKey, JSON.stringify(emptyBlocks));
+      localStorage.setItem(this.storageKey, JSON.stringify([]));
     }
+  }
+
+  private loadFromStorage(): DateBlock[] {
+    const stored = localStorage.getItem(this.storageKey);
+    return stored ? JSON.parse(stored) : [];
   }
 
   saveDateBlocks(blocks: DateBlock[]): void {
     localStorage.setItem('appData', JSON.stringify(blocks));
+    this.blocks.set(blocks);
   }
 
   addPlan(date: number, month: number, plan: string, isCompleted: boolean): void {
@@ -50,4 +58,10 @@ export class LocalStorageService {
     block.plans.push({ id: crypto.randomUUID(), title: plan, completed: isCompleted })
     this.saveDateBlocks(blocks);
   }
+
+  getPlans(date: number, month: number, year: number): DateBlock | undefined {
+    return this.blocks().find(
+      b => b.date === date && b.month === month && b.year === year
+    );
+}
 }
