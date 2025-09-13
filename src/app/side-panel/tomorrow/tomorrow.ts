@@ -36,6 +36,9 @@ export class Tomorrow {
   toggleViewTomorrow(): void {
     this.calendarService.setHasSelectedDate(true);
     const day = this.calendarService.getCurrentDateDay() + 1;
+    const month = this.calendarService.getCurrentDateMonth();
+
+    this.calendarService.setSelectedMonth(month);
     this.calendarService.setSelectedDate(day);
   }
 }

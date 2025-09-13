@@ -36,6 +36,9 @@ export class Today {
   toggleViewToday(): void {
     this.calendarService.setHasSelectedDate(true);
     const day = this.calendarService.getCurrentDateDay();
+    const month = this.calendarService.getCurrentDateMonth();
+
+    this.calendarService.setSelectedMonth(month);
     this.calendarService.setSelectedDate(day);
   }
 }
