@@ -11,7 +11,7 @@
                                     @if (plan.completed) { <fa-icon [icon]="faCheckCircle"></fa-icon> }
                                 </div>
                                 <div class="flex flex-row gap-2">
-                                    <button type="button" class="red-btn">Remove</button>
+                                    <button type="button" class="red-btn" (click)="onRemovePlan(plan.id, selectedDateIndex, selectedMonthIndex)">Remove</button>
                                     <button type="button" [ngClass]="plan.completed ? 'blue-btn' : 'green-btn'" (click)="onMarkPlanComplete(plan.id, selectedDateIndex, selectedMonthIndex)">{{ plan.completed ? 'Mark Incomplete' : 'Mark Complete' }}</button>
                                 </div>
                             </div>

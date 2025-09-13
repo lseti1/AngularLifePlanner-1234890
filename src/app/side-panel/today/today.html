@@ -6,9 +6,13 @@
                 @for (plan of todaysPlan().slice(0, 5); track plan) {
                     <li>{{ plan.title }}</li>
                 }
-                @if (todaysPlan().length === 0) { <p>No plans today. Click below to add a plan.</p>}
             </ul>
         </div>
+        @if (todaysPlan().length === 0) {
+            <div class="flex items-center justify-center w-full h-full">
+                <p class="text-2xl text-gray-400 text-center">No plans added for today.<br  />Get started by adding one below.</p>
+            </div>  
+        }
         <button (click)="toggleViewToday()" class="blue-btn">{{ todaysPlanButtonText }}</button>
     </div>
 </div>
