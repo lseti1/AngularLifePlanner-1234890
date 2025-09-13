@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, computed } from '@angular/core';
+import { LocalStorageService, Plan } from '../../services/local-storage-service';
+import { CalendarService } from '../../services/calendar-service';
 
 @Component({
   selector: 'app-today',
@@ -7,5 +9,22 @@ import { Component } from '@angular/core';
   styleUrl: './today.css'
 })
 export class Today {
+  public todaysPlan = computed(() => this.updateTodaysPlan());
 
+  constructor(
+    private localStorageService: LocalStorageService,
+    private calendarService: CalendarService
+  ) {}
+
+  updateTodaysPlan(): Plan[] {
+    const day = this.calendarService.getCurrentDateDay();
+    const month = this.calendarService.currentMonthIndex();
+    const year = 2025;
+
+    const block = this.localStorageService.blocks().find(
+      block => block.date === day && block.month === month && block.year === year
+    );
+
+    return block ? [...block.plans] : [];
+  }
 }
