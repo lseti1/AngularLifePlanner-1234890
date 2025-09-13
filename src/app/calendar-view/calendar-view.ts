@@ -3,6 +3,7 @@ import { CalendarService } from '../services/calendar-service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SelectionView } from './selection-view/selection-view';
+import { LocalStorageService } from '../services/local-storage-service';
 
 @Component({
   selector: 'app-calendar-view',
@@ -23,7 +24,8 @@ export class CalendarView {
   public hasSelectedDate = computed(() => this.calendarService.hasSelectedDate());
 
   constructor(
-    private calendarService: CalendarService
+    private calendarService: CalendarService,
+    private localStorageService: LocalStorageService
   ) {
     this.selectedMonthIndex.set(this.calendarService.currentMonthIndex());
     this.selectedMonthFirstDayIndex.set(this.calendarService.getSelectedMonthStartDate(this.selectedMonthIndex()));

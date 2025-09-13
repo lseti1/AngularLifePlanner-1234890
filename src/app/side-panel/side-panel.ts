@@ -3,6 +3,7 @@ import { Today } from './today/today';
 import { Tomorrow } from './tomorrow/tomorrow';
 import { SearchBar } from './search-bar/search-bar';
 import { FilteredPlans } from './filtered-plans/filtered-plans';
+import { LocalStorageService } from '../services/local-storage-service';
 
 @Component({
   selector: 'app-side-panel',
@@ -11,5 +12,7 @@ import { FilteredPlans } from './filtered-plans/filtered-plans';
   styleUrl: './side-panel.css'
 })
 export class SidePanel {
-
+  constructor(
+    private localStorageService: LocalStorageService
+  ) {}
 }
