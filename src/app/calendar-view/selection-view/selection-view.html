@@ -6,14 +6,13 @@
                     @for (plan of selectedDatePlans(); track plan) {
                         <li class="flex flex-col border bg-gray-100 p-2 gap-2 hover:bg-gray-200 cursor-pointer">
                             <div class="flex flex-row justify-between">
-                                <p class="flex items-center justify-center">{{ plan.title }}</p>
+                                <div class="flex flex-row flex items-center justify-center gap-4">
+                                    <p class="">{{ plan.title }}</p>
+                                    @if (plan.completed) { <fa-icon [icon]="faCheckCircle"></fa-icon> }
+                                </div>
                                 <div class="flex flex-row gap-2">
                                     <button type="button" class="red-btn">Remove</button>
-                                    @if (!plan.completed) {
-                                        <button type="button" class="blue-btn">Mark Complete</button>
-                                    } @else {
-                                        <button type="button" class="green-btn pointer-events-none">Completed</button>
-                                    }
+                                    <button type="button" [ngClass]="plan.completed ? 'blue-btn' : 'green-btn'" (click)="onMarkPlanComplete(plan.id, selectedDateIndex, selectedMonthIndex)">{{ plan.completed ? 'Mark Incomplete' : 'Mark Complete' }}</button>
                                 </div>
                             </div>
                         </li>
@@ -33,7 +32,7 @@
         
         <div class="flex flex-row gap-4">
             <button (click)="toggleSelectionView('adding')" type="button" class="blue-btn">{{ AddPlansText() }}</button>
-            <button type="submit" class="green-btn">Save</button>
+            <button type="submit" class="green-btn">Close</button>
         </div>
         <button type="submit" class="absolute top-2 right-4 text-2xl font-semibold hover:text-black/50">X</button>
     </form>

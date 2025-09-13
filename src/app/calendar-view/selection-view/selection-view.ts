@@ -5,20 +5,24 @@ import { CalendarService } from '../../services/calendar-service';
 import { OrdinalPipePipe } from '../../pipes/ordinal-pipe-pipe';
 import { LocalStorageService } from '../../services/local-storage-service';
 import { Plan } from '../../services/local-storage-service';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
 export type selectionViewType = 'viewing' | 'adding' | 'editing';
 
 @Component({
   selector: 'app-selection-view',
-  imports: [FormsModule, CommonModule, OrdinalPipePipe],
+  imports: [FormsModule, CommonModule, OrdinalPipePipe, FontAwesomeModule],
   templateUrl: './selection-view.html',
   styleUrl: './selection-view.css'
 })
-export class SelectionView implements OnInit {
+export class SelectionView {
   @Input() months: string[] = [];
   @Input() selectedMonthFirstDayIndex: number = 0;
 
-  public selectedDatePlans = signal<Plan[]>([]);
+  public faCheckCircle = faCheckCircle;
+
+  public selectedDatePlans = computed(() => this.updateSelectedDatePlans());
   public plan: string = '';
 
   public selectionViewType = signal<selectionViewType>('viewing');
@@ -30,10 +34,6 @@ export class SelectionView implements OnInit {
     private localStorageService: LocalStorageService
   ) {}
 
-  ngOnInit(): void {
-      this.updateSelectedDatePlans();
-  }
-
   get selectedDateIndex(): number {
     return this.calendarService.selectedDateIndex() - this.selectedMonthFirstDayIndex + 1;
   }
@@ -42,7 +42,7 @@ export class SelectionView implements OnInit {
     return this.calendarService.selectedMonthIndex();
   }
 
-  updateSelectedDatePlans(): void {
+  updateSelectedDatePlans(): Plan[] {
     const day = this.calendarService.selectedDateIndex();
     const month = this.calendarService.selectedMonthIndex();
     const year = 2025;
@@ -51,7 +51,7 @@ export class SelectionView implements OnInit {
       block => block.date === day && block.month === month && block.year === year
     );
 
-    this.selectedDatePlans.set(block ? [...block.plans]: []);
+    return block ? [...block.plans] : [];
   }
 
   onClear(): void {
@@ -66,7 +66,10 @@ export class SelectionView implements OnInit {
   onAddPlan(date: number, month: number, plan: string): void {
     this.localStorageService.addPlan(date, month, plan, false);
     this.plan = '';
-    this.updateSelectedDatePlans();
+  }
+
+  onMarkPlanComplete(ID: string, date: number, month: number): void {
+    this.localStorageService.togglePlanComplete(ID, date, month);
   }
 
   toggleSelectionView(viewType: selectionViewType): void {
