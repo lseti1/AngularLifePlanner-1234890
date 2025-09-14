@@ -1,0 +1,28 @@
+<div class="fixed inset-0 flex justify-center items-center bg-black/20">
+    <div class="relative flex flex-col gap-4 w-[45%] h-[50%] bg-white justify-center items-center shadow-full rounded text-center p-8 text-xl">
+        <div>
+            <h1 class="text-4xl font-semibold">Welcome to Life Planner</h1>
+            <p class="text-lg">Plan your days, week or months ahead and see what's coming up.</p>
+        </div>
+        <div>
+            <p class="font-semibold">Features include:</p>
+            <ul class="list-disc list-inside text-left">
+                <li>Add, edit, and delete plans</li>
+                <li>Side panel with easy access to various key dates</li>
+                <li>Add multiple plans to each day and track whether they're complete</li>
+                <li>and more!</li>
+            </ul>
+        </div>
+
+        <div class="bg-gray-100 p-4 rounded border border-gray-300 text-left text-sm flex flex-col w-full">
+            <p><strong>Note:</strong> This is a demo application. Data is saved in your browser's local storage and can be cleared anytime via the settings. Not all features may work as intended, and this is not a full-fledged planning platform.</p>
+            <b class="font-bold text-red-500 w-full text-center">(Do not store any personal information while using this app)</b>
+        </div>
+        <p>Get started below to explore!</p>
+        <button (click)="onClose()" class="blue-btn">Start</button>
+
+        <a class="absolute top-2 right-2" href="https://github.com/lseti1/AngularLifePlanner-1234890" target="_blank" rel="noopener noreferrer">
+            <fa-icon [icon]="faGithub" class="text-4xl"></fa-icon>
+        </a>
+    </div>
+</div>

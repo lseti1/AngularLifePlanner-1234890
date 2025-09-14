@@ -4,4 +4,7 @@
     <app-side-panel />
     <app-calendar-view />
   </div>
+  @if (isWelcomeMessage) {
+      <app-welcome-message (isWelcomeMessageVisible)="setIsWelcomeMessage($event)"/>
+  }
 </div>
