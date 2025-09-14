@@ -4,7 +4,7 @@
             <h1 class="text-2xl font-semibold border-b-2 border-blue-800">Coming Up</h1>
             <ul class="flex flex-col gap-1 text-lg list-disc list-inside break-words mt-1">
                 @for (block of dateBlocks().slice(0, 5); track block) {
-                    <li (click)="onViewPlan(block.month, block.date)" class="flex flex-row justify-between items-center border bg-gray-100 hover:bg-gray-200 cursor-pointer p-2">
+                    <li  class="flex flex-row justify-between items-center border bg-gray-100 cursor-pointer p-2">
                         <div class="flex flex-row gap-1">
                             <p class="font-semibold">{{ months[block.month] }} {{ block.date | ordinalPipe }}:</p>
                             @for (plan of block.plans.slice(0, 5); track plan.id) {
@@ -14,7 +14,7 @@
                                 <p>& more</p>
                             }
                         </div>
-                        <button class="blue-btn -m-1">View</button>
+                        <button (click)="onViewPlan(block.month, block.date)" class="blue-btn -m-1">View</button>
                     </li>
                 }
             </ul>

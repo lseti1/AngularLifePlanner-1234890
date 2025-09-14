@@ -14,9 +14,10 @@ export class FilteredPlans {
   public months: string[] = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ];
   public dateBlocks = computed(() => {
     const today = new Date();
+    const cutoff = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 2);
 
     return this.localStorageService.blocks()
-      .filter(block => new Date(block.year, block.month, block.date) >= today)
+      .filter(block => new Date(block.year, block.month, block.date) >= cutoff)
       .sort((a, b) => {
         const aDate = new Date(a.year, a.month, a.date).getTime();
         const bDate = new Date(b.year, b.month, b.date).getTime();
