@@ -3,7 +3,7 @@ import { CalendarService } from '../services/calendar-service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SelectionView } from './selection-view/selection-view';
-import { LocalStorageService } from '../services/local-storage-service';
+import { LocalStorageService, Plan } from '../services/local-storage-service';
 import { SelectionPlanView } from './selection-plan-view/selection-plan-view';
 
 @Component({
@@ -16,6 +16,8 @@ export class CalendarView {
   public months: string[] = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ];
   public daysOfWeek: string[] = [ 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   public days: number[] = Array.from({ length: 42 }, (_, i) => i + 1);
+  public dateBlocks = computed(() => this.localStorageService.blocks());
+  public dateBlockHasPlan: boolean = false;
 
   public selectedMonthIndex;
   public selectedDay= signal<number>(0);
@@ -58,5 +60,10 @@ export class CalendarView {
     const isToday = (day - this.selectedMonthFirstDayIndex() + 1) === this.calendarService.currentDate.getDate() - 1;
     const isThisMonth = this.calendarService.currentMonthIndex() === this.selectedMonthIndex();
     return isToday && isThisMonth;
+  }
+
+  getDateBlockPlans(dateIndex: number): Plan[] {
+    const selectDateBlock = this.dateBlocks().find(block => block.month === this.selectedMonthIndex() && block.date === dateIndex - this.selectedMonthFirstDayIndex() + 1);
+    return selectDateBlock?.plans ?? [];
   }
 }
