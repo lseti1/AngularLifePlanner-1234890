@@ -22,10 +22,11 @@
                         (click)="toggleHasSelectedDate(day)" 
                         class=" relative border p-2 hover:bg-blue-800 hover:text-white cursor-pointer select-none overflow-hidden">
                         {{ day - selectedMonthFirstDayIndex() + 1}}
-                        @if ( getDateBlockPlans(day).length > 0) {
+                        @let dayPlan = getDateBlockPlans(day);
+                        @if ( dayPlan.length > 0) {
                         <div class="flex flex-col">
-                            <p class="absolute flex items-center justify-center text-center top-0 right-0 bg-blue-800 text-white px-2">{{ getDateBlockPlans(day).length }} plans</p>
-                            @for (plan of getDateBlockPlans(day).slice(0,3); track plan) {
+                            <p class="absolute flex items-center justify-center text-center top-0 right-0 bg-blue-800 text-white px-2">{{ dayPlan.length }} plans</p>
+                            @for (plan of dayPlan.slice(0,3); track plan) {
                                 <p class="whitespace-nowrap">- {{ plan.title }}</p>
                             }    
                         </div> 

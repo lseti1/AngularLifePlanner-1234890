@@ -11,12 +11,12 @@ import { LocalStorageService, Plan } from '../../services/local-storage-service'
   templateUrl: './selection-plan-view.html',
   styleUrl: './selection-plan-view.css'
 })
-export class SelectionPlanView {
+export class SelectionPlanView implements OnInit {
   @Input() months: string[] = [];
   public dateBlocks = computed(() => this.localStorageService.blocks());
   public isEditing = signal<boolean>(false);
   public editPlanButtonText = computed(() => this.isEditing() ? "Finish Editing" : "Edit Plan");
-  public savedPlan: string = '';
+  public savedPlan: string = '' ;
   public plan: string = '' ;
   public selectedMonthFirstDayIndex;
 
@@ -25,7 +25,11 @@ export class SelectionPlanView {
     private localStorageService: LocalStorageService
   ) {
     this.selectedMonthFirstDayIndex = this.calendarService.getSelectedMonthStartDate(this.calendarService.selectedMonthIndex());
+  }
+
+  ngOnInit() {
     this.savedPlan = this.selectedPlan;
+    this.plan = this.savedPlan; 
   }
 
   get selectedDateIndex(): number {
