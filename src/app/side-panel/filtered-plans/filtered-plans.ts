@@ -1,6 +1,7 @@
 import { Component, computed } from '@angular/core';
 import { LocalStorageService } from '../../services/local-storage-service';
 import { OrdinalPipePipe } from "../../pipes/ordinal-pipe-pipe";
+import { CalendarService } from '../../services/calendar-service';
 
 @Component({
   selector: 'app-filtered-plans',
@@ -24,8 +25,13 @@ export class FilteredPlans {
   });
   
   constructor(
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private calendarService: CalendarService
   ) {}
 
-  
+  onViewPlan(month: number, date: number): void {
+    this.calendarService.setHasSelectedDate(true);
+    this.calendarService.setSelectedDate(date);
+    this.calendarService.setSelectedMonth(month);
+  }
 }
