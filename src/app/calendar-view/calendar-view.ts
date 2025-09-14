@@ -16,10 +16,10 @@ export class CalendarView {
   public daysOfWeek: string[] = [ 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   public days: number[] = Array.from({ length: 42 }, (_, i) => i + 1);
 
-  public selectedMonthIndex = signal<number>(0);
+  public selectedMonthIndex;
   public selectedDay= signal<number>(0);
-  public selectedMonthFirstDayIndex = signal<number>(0);
-  public selectedMonthLastDayIndex = signal<number>(0);
+  public selectedMonthFirstDayIndex;
+  public selectedMonthLastDayIndex;
 
   public hasSelectedDate = computed(() => this.calendarService.hasSelectedDate());
 
@@ -27,24 +27,13 @@ export class CalendarView {
     private calendarService: CalendarService,
     private localStorageService: LocalStorageService
   ) {
-    this.selectedMonthIndex.set(this.calendarService.currentMonthIndex());
-    this.selectedMonthFirstDayIndex.set(this.calendarService.getSelectedMonthStartDate(this.selectedMonthIndex()));
-    this.selectedMonthLastDayIndex.set(this.calendarService.getSelectedMonthLastDate(this.selectedMonthIndex()));
+    this.selectedMonthIndex = this.calendarService.selectedMonthIndex;
+    this.selectedMonthFirstDayIndex = this.calendarService.selectedMonthFirstDayIndex;
+    this.selectedMonthLastDayIndex = this.calendarService.selectedMonthLastDayIndex;
   }
 
   setSelectedMonthIndex(index: number): void {
     this.calendarService.setSelectedMonth(index);
-    this.setSelectedMonthFirstDayIndex(index);
-    this.setSelectedMonthLastDayIndex(index);
-  }
-
-  setSelectedMonthFirstDayIndex(monthIndex: number): void {
-    this.selectedMonthFirstDayIndex.set(this.calendarService.getSelectedMonthStartDate(monthIndex));
-  }
-
-  setSelectedMonthLastDayIndex(monthIndex: number): void {
-    this.selectedMonthLastDayIndex.set(this.calendarService.getSelectedMonthLastDate(monthIndex));
-    console.log(this.selectedMonthLastDayIndex());
   }
 
   isValidCalendarDay(day: number): boolean { // This is relating to hiding blocks before the 1st day and after the last day of the month
@@ -54,7 +43,7 @@ export class CalendarView {
 
   isPastMonthDay(day: number): boolean { // This is relating to whether it's a past month and or a past day relative to current month/day
     const isPastMonth = this.selectedMonthIndex() < this.calendarService.currentMonthIndex();
-    const isPastDay = day < this.calendarService.currentDate.getDate() - 1;
+    const isPastDay = day < this.calendarService.currentDate.getDate() - 1 && this.selectedMonthIndex() <= this.calendarService.currentMonthIndex();
     return isPastMonth || isPastDay;
   }
 

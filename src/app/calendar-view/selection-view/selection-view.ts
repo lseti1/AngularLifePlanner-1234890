@@ -7,6 +7,7 @@ import { LocalStorageService } from '../../services/local-storage-service';
 import { Plan } from '../../services/local-storage-service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { faCheckCircle as faCheckCircleRegular } from '@fortawesome/free-regular-svg-icons';
 
 export type selectionViewType = 'viewing' | 'adding' | 'editing';
 
@@ -18,13 +19,12 @@ export type selectionViewType = 'viewing' | 'adding' | 'editing';
 })
 export class SelectionView {
   @Input() months: string[] = [];
-  @Input() selectedMonthFirstDayIndex: number = 0;
 
+  public selectedMonthFirstDayIndex;
   public faCheckCircle = faCheckCircle;
-
+  public faCheckCircleRegular = faCheckCircleRegular;
   public selectedDatePlans = computed(() => this.updateSelectedDatePlans());
   public plan: string = '';
-
   public selectionViewType = signal<selectionViewType>('viewing');
   public AddPlansText = computed(() => this.selectionViewType() !== 'adding' ? 'Add Plans' : 'Finish Adding');
   public dateBlocks = computed(() => this.localStorageService.blocks());
@@ -32,7 +32,9 @@ export class SelectionView {
   constructor(
     private calendarService: CalendarService,
     private localStorageService: LocalStorageService
-  ) {}
+  ) {
+    this.selectedMonthFirstDayIndex = this.calendarService.getSelectedMonthStartDate(this.calendarService.selectedMonthIndex());
+  }
 
   get selectedDateIndex(): number {
     return this.calendarService.selectedDateIndex() - this.selectedMonthFirstDayIndex + 1;

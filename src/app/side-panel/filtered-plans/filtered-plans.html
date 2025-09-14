@@ -1,14 +1,18 @@
 <div class="flex flex-col w-full h-full px-4 py-2">
     <div class="bg-white p-2 border overflow-auto h-full">
-        <h1 class="text-2xl font-semibold border-b-2 border-blue-800">Filtered Plans for: </h1>
-        <ul class="list-disc list-inside break-words">
-            <li>Lst</li>
-            <li>Lst</li>
-            <li>Lst</li>
-            <li>Lst</li>
-            <li>Lst</li>
-            <li>Lst</li>
-            <li>Lst</li>
+        <h1 class="text-2xl font-semibold border-b-2 border-blue-800">Future Plans</h1>
+        <ul class="flex flex-col gap-1 text-lg list-disc list-inside break-words mt-1">
+            @for (block of dateBlocks(); track block) {
+                <li class="flex flex-row justify-between items-center border bg-gray-100 p-2">
+                    <div class="flex flex-row gap-1">
+                        <p class="font-semibold">{{ months[block.month] }} {{ block.date | ordinalPipe }}:</p>
+                        @for (plan of block.plans; track plan) {
+                            @if (!plan.completed) {<p>{{ plan.title }} ,</p>}
+                        }
+                    </div>
+                    <button class="blue-btn -m-1">View</button>
+                </li>
+            }
         </ul>
     </div>
 </div>
