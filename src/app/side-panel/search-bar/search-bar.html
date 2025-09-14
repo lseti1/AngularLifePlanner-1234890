@@ -1,8 +1,8 @@
 <div class="flex flex-col w-full h-full">
     <div class="h-full px-4 py-2 flex items-center justify-between">
-        <input class="border p-2" type="search" placeholder="Search Plan..."/>
+        <input class="border p-2 w-[70%] pointer-events-none select-none opacity-50" type="search" placeholder="Search Functionality To Be Added At A Later Date"/>
         <div class="flex flex-row gap-2">
-            <fa-icon class="bg-gray-300/0 rounded p-1 text-xl text-black/50 hover:text-black hover:bg-gray-300 cursor-pointer" [icon]="faGear"></fa-icon>
+            <fa-icon class="bg-gray-300/0 rounded p-1 text-xl text-black/50 hover:text-black hover:bg-gray-300 cursor-pointer" [icon]="faGear" (click)="onSettings()"></fa-icon>
             <!-- <fa-icon class="bg-gray-300/0 rounded p-1 text-xl text-black/50 hover:text-black hover:bg-gray-300 cursor-pointer" [icon]="faUser"></fa-icon> -->
         </div>
     </div>
