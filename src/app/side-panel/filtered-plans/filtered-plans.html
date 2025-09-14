@@ -16,8 +16,14 @@
                         </div>
                         <button (click)="onViewPlan(block.month, block.date)" class="blue-btn -m-1">View</button>
                     </li>
-                }
+                } 
+                
             </ul>
+            @if (dateBlocks().length === 0) {
+                <div class="flex items-center justify-center w-full h-full">
+                    <p class="text-2xl text-gray-400 text-center">No other plans coming up.</p>
+                </div>  
+            }
         </div>
         <p class="text-center text-gray-400">Your next 5 scheduled days will appear here</p>
     </div>
