@@ -93,8 +93,6 @@ export class LocalStorageService {
 
   editPlan(ID: string, date: number, month: number, newTitle: string): void {
     const year = 2025;
-    // const storedDateBlocks = localStorage.getItem('appData');
-    // const blocks: DateBlock[] = storedDateBlocks ? JSON.parse(storedDateBlocks) : [];
     const blocks = [...this.blocks()];
 
     const block = blocks.find(block => block.date === date && block.month === month && block.year === year);
@@ -104,5 +102,10 @@ export class LocalStorageService {
     if (plan) plan.title = newTitle;
 
     this.saveDateBlocks(blocks);
+  }
+
+  clearAppData(): void {
+    localStorage.removeItem(this.storageKey);
+    this.blocks.set([]);
   }
 }

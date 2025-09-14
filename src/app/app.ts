@@ -1,17 +1,29 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { TopBar } from './top-bar/top-bar';
 import { SidePanel } from './side-panel/side-panel';
 import { CalendarView } from './calendar-view/calendar-view';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { WelcomeMessage } from './welcome-message/welcome-message';
+import { Settings } from './settings/settings';
+import { SettingsService } from './services/settings-service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, TopBar, SidePanel, CalendarView, FontAwesomeModule],
+  imports: [RouterOutlet, TopBar, SidePanel, CalendarView, FontAwesomeModule, WelcomeMessage, Settings],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App {
   protected readonly title = signal('lifePlanner');
+  public isWelcomeMessage: boolean = true;
+  public isSettings = computed(() => this.settingsService.isSettings())
 
+  constructor(
+    private settingsService: SettingsService
+  ) {}
+
+  setIsWelcomeMessage(value: boolean): void {
+    this.isWelcomeMessage = value;
+  }
 }
