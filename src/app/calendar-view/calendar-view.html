@@ -20,14 +20,25 @@
                     <li 
                         [ngClass]="{ 'text-black/0': isValidCalendarDay($index), 'pointer-events-none': isValidCalendarDay($index) || isPastMonthDay($index), 'opacity-20': isPastMonthDay($index), 'bg-gray-100': isCurrentDay($index) }"
                         (click)="toggleHasSelectedDate(day)" 
-                        class="border p-2 hover:bg-blue-800 hover:text-white cursor-pointer select-none">
+                        class=" relative border p-2 hover:bg-blue-800 hover:text-white cursor-pointer select-none overflow-hidden">
                         {{ day - selectedMonthFirstDayIndex() + 1}}
+                        @let dayPlan = getDateBlockPlans(day);
+                        @if ( dayPlan.length > 0) {
+                        <div class="flex flex-col">
+                            <p class="absolute flex items-center justify-center text-center top-0 right-0 bg-blue-800 text-white px-2">{{ dayPlan.length }} plans</p>
+                            @for (plan of dayPlan.slice(0,3); track plan) {
+                                <p class="whitespace-nowrap">- {{ plan.title }}</p>
+                            }    
+                        </div> 
+                        }  
                     </li>
                 }
             </ul>
         </div>
     </div>
-    @if (hasSelectedDate()) {
+    @if (hasSelectedDate() && !hasSelecetedPlan()) {
         <app-selection-view [months]="months"/>
+    } @else if (hasSelectedDate() && hasSelecetedPlan()) {
+        <app-selection-plan-view [months]="months"/>
     }
 </div>

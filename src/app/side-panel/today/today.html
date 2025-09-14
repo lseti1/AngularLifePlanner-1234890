@@ -6,7 +6,7 @@
                  <p class="text-gray-400">{{ currentDate | date: 'MMMM'}} {{ currentDate.getDate() | ordinalPipe}}</p>
             </div>
             <ul class="text-lg break-words">
-                @for (plan of todaysPlan().slice(0, 5); track plan) {
+                @for (plan of todaysPlan().slice(0, 5); track plan.id) {
                     <li class="flex flex-row items-center gap-4 h-full">
                         @if (plan.completed) { <fa-icon class="text-sm mt-0.5" [icon]="faCheckCircle"></fa-icon> }
                         @else { <fa-icon class="text-sm mt-0.5" [icon]="faCheckCircleRegular"></fa-icon> }

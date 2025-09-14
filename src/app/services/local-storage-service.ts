@@ -45,8 +45,7 @@ export class LocalStorageService {
 
   addPlan(date: number, month: number, plan: string, isCompleted: boolean): void {
     const year = 2025;
-    const storedDateBlocks = localStorage.getItem('appData');
-    const blocks: DateBlock[] = storedDateBlocks ? JSON.parse(storedDateBlocks) : [];
+    const blocks = [...this.blocks()];
 
     let block = blocks.find(block => block.date === date && block.month === month && block.year === year);
 
@@ -67,8 +66,7 @@ export class LocalStorageService {
 
   togglePlanComplete(ID: string, date: number, month: number): void {
     const year = 2025;
-    const storedDateBlocks = localStorage.getItem('appData');
-    const blocks: DateBlock[] = storedDateBlocks ? JSON.parse(storedDateBlocks) : [];
+    const blocks = [...this.blocks()];
 
     const block = blocks.find(block => block.date === date && block.month === month && block.year === year);
     if (!block) return;
@@ -82,8 +80,7 @@ export class LocalStorageService {
 
   removePlan(ID: string, date: number, month: number): void {
     const year = 2025;
-    const storedDateBlocks = localStorage.getItem('appData');
-    const blocks: DateBlock[] = storedDateBlocks ? JSON.parse(storedDateBlocks) : [];
+    const blocks = [...this.blocks()];
 
     const block = blocks.find(block => block.date === date && block.month === month && block.year === year);
     if (!block) return;
@@ -92,5 +89,20 @@ export class LocalStorageService {
     const updatedBlocks = blocks.filter(block => block.plans.length > 0); // To remove any empty blocks with no plans
 
     this.saveDateBlocks(updatedBlocks);
+  }
+
+  editPlan(ID: string, date: number, month: number, newTitle: string): void {
+    const year = 2025;
+    // const storedDateBlocks = localStorage.getItem('appData');
+    // const blocks: DateBlock[] = storedDateBlocks ? JSON.parse(storedDateBlocks) : [];
+    const blocks = [...this.blocks()];
+
+    const block = blocks.find(block => block.date === date && block.month === month && block.year === year);
+    if (!block) return;
+
+    const plan = block.plans.find(plan => plan.id === ID);
+    if (plan) plan.title = newTitle;
+
+    this.saveDateBlocks(blocks);
   }
 }

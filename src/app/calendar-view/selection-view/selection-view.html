@@ -3,8 +3,8 @@
         <h1 class="text-3xl">Viewing plans for {{ months[selectedMonthIndex] }} {{ selectedDateIndex | ordinalPipe }} </h1>
         <div class="w-full overflow-auto h-full">
             <ul class="flex flex-col break-words w-full gap-1 h-full">
-                    @for (plan of selectedDatePlans(); track plan) {
-                        <li class="flex flex-col border bg-gray-100 p-2 gap-2 hover:bg-gray-200 cursor-pointer">
+                    @for (plan of selectedDatePlans(); track plan.id) {
+                        <li (click)="onSelectPlan(plan.id)" class="flex flex-col border bg-gray-100 p-2 gap-2 hover:bg-gray-200 cursor-pointer">
                             <div class="flex flex-row justify-between">
                                 <div class="flex flex-row flex items-center justify-center gap-4">
                                     @if (plan.completed) { <fa-icon class="mt-0.5" [icon]="faCheckCircle"></fa-icon> }
@@ -12,8 +12,8 @@
                                     <p class="">{{ plan.title }}</p>
                                 </div>
                                 <div class="flex flex-row gap-2">
-                                    <button type="button" class="red-btn" (click)="onRemovePlan(plan.id, selectedDateIndex, selectedMonthIndex)">Remove</button>
-                                    <button type="button" [ngClass]="plan.completed ? 'blue-btn' : 'green-btn'" (click)="onMarkPlanComplete(plan.id, selectedDateIndex, selectedMonthIndex)">{{ plan.completed ? 'Mark Incomplete' : 'Mark Complete' }}</button>
+                                    <button type="button" class="red-btn" (click)="onRemovePlan(plan.id, selectedDateIndex, selectedMonthIndex, $event)">Remove</button>
+                                    <button type="button" [ngClass]="plan.completed ? 'blue-btn' : 'green-btn'" (click)="onMarkPlanComplete(plan.id, selectedDateIndex, selectedMonthIndex, $event)">{{ plan.completed ? 'Mark Incomplete' : 'Mark Complete' }}</button>
                                 </div>
                             </div>
                         </li>
