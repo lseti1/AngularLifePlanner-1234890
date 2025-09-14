@@ -27,7 +27,9 @@
             </ul>
         </div>
     </div>
-    @if (hasSelectedDate()) {
+    @if (hasSelectedDate() && !hasSelecetedPlan()) {
         <app-selection-view [months]="months"/>
+    } @else if (hasSelectedDate() && hasSelecetedPlan()) {
+        <app-selection-plan-view [months]="months"/>
     }
 </div>

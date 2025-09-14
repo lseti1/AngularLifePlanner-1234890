@@ -4,10 +4,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SelectionView } from './selection-view/selection-view';
 import { LocalStorageService } from '../services/local-storage-service';
+import { SelectionPlanView } from './selection-plan-view/selection-plan-view';
 
 @Component({
   selector: 'app-calendar-view',
-  imports: [FormsModule, CommonModule, SelectionView],
+  imports: [FormsModule, CommonModule, SelectionView, SelectionPlanView],
   templateUrl: './calendar-view.html',
   styleUrl: './calendar-view.css'
 })
@@ -22,6 +23,7 @@ export class CalendarView {
   public selectedMonthLastDayIndex;
 
   public hasSelectedDate = computed(() => this.calendarService.hasSelectedDate());
+  public hasSelecetedPlan = computed(() => this.calendarService.hasSelectedPlan());
 
   constructor(
     private calendarService: CalendarService,

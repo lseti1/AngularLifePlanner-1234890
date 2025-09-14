@@ -4,7 +4,7 @@
         <div class="w-full overflow-auto h-full">
             <ul class="flex flex-col break-words w-full gap-1 h-full">
                     @for (plan of selectedDatePlans(); track plan) {
-                        <li class="flex flex-col border bg-gray-100 p-2 gap-2 hover:bg-gray-200 cursor-pointer">
+                        <li (click)="onSelectPlan(plan.id)" class="flex flex-col border bg-gray-100 p-2 gap-2 hover:bg-gray-200 cursor-pointer">
                             <div class="flex flex-row justify-between">
                                 <div class="flex flex-row flex items-center justify-center gap-4">
                                     @if (plan.completed) { <fa-icon class="mt-0.5" [icon]="faCheckCircle"></fa-icon> }

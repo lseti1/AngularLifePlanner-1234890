@@ -83,4 +83,9 @@ export class SelectionView {
       this.selectionViewType() === viewType ? 'viewing' : viewType
     );
   }
+
+  onSelectPlan(ID: string): void {
+    this.calendarService.setHasSelectedPlan(true);
+    this.calendarService.setSelectedPlanIndex(ID);
+  }
 }
