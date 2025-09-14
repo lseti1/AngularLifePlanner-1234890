@@ -33,7 +33,7 @@ export class SelectionPlanView implements OnInit {
   }
 
   get selectedDateIndex(): number {
-    return this.calendarService.selectedDateIndex() - this.selectedMonthFirstDayIndex + 1;
+    return this.calendarService.selectedDateIndex();
   }
 
   get selectedMonthIndex(): number {
