@@ -70,11 +70,13 @@ export class SelectionView {
     this.plan = '';
   }
 
-  onMarkPlanComplete(ID: string, date: number, month: number): void {
+  onMarkPlanComplete(ID: string, date: number, month: number, e: Event): void {
+    e.stopPropagation()
     this.localStorageService.togglePlanComplete(ID, date, month);
   }
 
-  onRemovePlan(ID: string, date: number, month: number): void {
+  onRemovePlan(ID: string, date: number, month: number, e: Event): void {
+    e.stopPropagation();
     this.localStorageService.removePlan(ID, date, month);
   }
 

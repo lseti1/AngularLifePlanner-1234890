@@ -2,17 +2,21 @@
     <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="relative flex flex-col justify-center items-center bg-white w-[45%] h-[45%] shadow-sm p-8 gap-4 text-xl">
         <h1 class="text-3xl">Viewing plan for {{ months[selectedMonthIndex] }} {{ selectedDateIndex | ordinalPipe }} </h1>
         
-        <form class="w-[70%]">
+        <div class="w-[70%]">
             <h1>Plan:</h1>
-            <input [ngClass]="{'pointer-events-none bg-white' : !isEditing()}" class="flex flex-col border bg-gray-100 p-2 gap-2 w-full" [value]="selectedPlan"/>
-        </form>
-        <form class="w-[70%] opacity-30">
+            <input [ngClass]="{'pointer-events-none bg-white' : !isEditing()}" class="flex flex-col border bg-gray-100 p-2 gap-2 w-full" id="plan" name="plan" type="text" [value]="savedPlan" [(ngModel)]="plan"/>
+        </div>
+        <div class="w-[70%] opacity-30">
             <h1>Description:</h1>
             <textarea [rows]="3" maxlength="150" class="flex flex-col border bg-gray-100 p-2 gap-2 w-full resize-none pointer-events-none">This Feature To Be Added At A Later Date</textarea>
-        </form>
-        <div class="w-full flex flex-row gap-2 items-center justify-center">
-            <button [ngClass]="isEditing() ? 'green-btn' : 'blue-btn'" type="button" class="select-none" (click)="onEditPlan()">{{ editPlanButtonText() }}</button>
         </div>
-        <button type="submit" class="absolute top-2 left-2 text-white hover:text-white/50 tracking-tighter bg-blue-700 py-1 px-2 border text-base">&lt; Return</button>
+        <div class="w-full flex flex-row gap-2 items-center justify-center">
+            @if (!isEditing()) {
+                <button type="button" class="green-btn" (click)="onEditPlan()">Edit Plan</button>
+            } @else {
+                <button type="submit" class="blue-btn" (click)="onEditPlan()">Save & Close</button>
+            }
+        </div>
+        <button type="button" (click)="onReturn()" class="absolute top-2 left-2 text-white hover:text-white/50 tracking-tighter bg-blue-700 py-1 px-2 border text-base">&lt; Return</button>
     </form>
 </div>

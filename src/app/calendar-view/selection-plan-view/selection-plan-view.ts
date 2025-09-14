@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, Input, signal } from '@angular/core';
+import { Component, computed, Input, OnInit, signal } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CalendarService } from '../../services/calendar-service';
 import { OrdinalPipePipe } from '../../pipes/ordinal-pipe-pipe';
@@ -16,9 +16,8 @@ export class SelectionPlanView {
   public dateBlocks = computed(() => this.localStorageService.blocks());
   public isEditing = signal<boolean>(false);
   public editPlanButtonText = computed(() => this.isEditing() ? "Finish Editing" : "Edit Plan");
-
-  
-
+  public savedPlan: string = '';
+  public plan: string = '' ;
   public selectedMonthFirstDayIndex;
 
   constructor(
@@ -26,6 +25,7 @@ export class SelectionPlanView {
     private localStorageService: LocalStorageService
   ) {
     this.selectedMonthFirstDayIndex = this.calendarService.getSelectedMonthStartDate(this.calendarService.selectedMonthIndex());
+    this.savedPlan = this.selectedPlan;
   }
 
   get selectedDateIndex(): number {
@@ -40,16 +40,21 @@ export class SelectionPlanView {
     return this.calendarService.selectedPlanIndex();
   }
 
-  get selectedPlan(): String {
+  get selectedPlan(): string {
     const selectDateBlock = this.dateBlocks().find(block => block.month === this.selectedMonthIndex && block.date === this.selectedDateIndex);
     return selectDateBlock?.plans.find(plan => plan.id === this.selectedPlanIndex)?.title ?? '';
   }
 
   onSubmit(planData: NgForm): void {
     this.calendarService.setHasSelectedPlan(false);
+    this.localStorageService.editPlan(this.selectedPlanIndex, this.selectedDateIndex, this.selectedMonthIndex, this.plan);
   }
 
   onEditPlan(): void {
     this.isEditing.set(!this.isEditing());
+  }
+
+  onReturn(): void {
+    this.calendarService.setHasSelectedPlan(false);
   }
 }

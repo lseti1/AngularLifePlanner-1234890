@@ -93,4 +93,18 @@ export class LocalStorageService {
 
     this.saveDateBlocks(updatedBlocks);
   }
+
+  editPlan(ID: string, date: number, month: number, newTitle: string): void {
+    const year = 2025;
+    const storedDateBlocks = localStorage.getItem('appData');
+    const blocks: DateBlock[] = storedDateBlocks ? JSON.parse(storedDateBlocks) : [];
+
+    const block = blocks.find(block => block.date === date && block.month === month && block.year === year);
+    if (!block) return;
+
+    const plan = block.plans.find(plan => plan.id === ID);
+    if (plan) plan.title = newTitle;
+
+    this.saveDateBlocks(blocks);
+  }
 }
