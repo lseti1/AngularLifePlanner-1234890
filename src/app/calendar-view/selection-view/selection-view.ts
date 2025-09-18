@@ -69,7 +69,7 @@ export class SelectionView {
   onAddPlan(date: number, month: number, plan: string): void {
     console.log("From Inside on AddPlan, this.selectedMonthFirstDayIndex = ", this.selectedMonthFirstDayIndex);
     console.log("From Inside on AddPlan, Pass date variable = ", date);
-    this.localStorageService.addPlan(date, month, plan, false);
+    this.localStorageService.addPlan(date, month, plan, '', false);
     this.plan = '';
   }
 

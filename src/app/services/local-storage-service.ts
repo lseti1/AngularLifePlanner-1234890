@@ -1,8 +1,10 @@
 import { Injectable, signal } from '@angular/core';
+import { CalendarService } from './calendar-service';
 
 export interface Plan {
   id: string;
   title: string;
+  description: string;
   completed: boolean;
 }
 
@@ -21,7 +23,7 @@ export class LocalStorageService {
   private storageKey = 'appData';
   
   constructor(
-
+    private calendarService: CalendarService
   ) {
     this.initialiseData();
     this.blocks.set(this.loadFromStorage());
@@ -43,7 +45,7 @@ export class LocalStorageService {
     this.blocks.set(blocks);
   }
 
-  addPlan(date: number, month: number, plan: string, isCompleted: boolean): void {
+  addPlan(date: number, month: number, plan: string, description: string, isCompleted: boolean): void {
     const year = 2025;
     const blocks = [...this.blocks()];
 
@@ -54,7 +56,7 @@ export class LocalStorageService {
       blocks.push(block);
     }
 
-    block.plans.push({ id: crypto.randomUUID(), title: plan, completed: isCompleted })
+    block.plans.push({ id: crypto.randomUUID(), title: plan, description: '', completed: isCompleted })
     this.saveDateBlocks(blocks);
   }
 
@@ -91,7 +93,7 @@ export class LocalStorageService {
     this.saveDateBlocks(updatedBlocks);
   }
 
-  editPlan(ID: string, date: number, month: number, newTitle: string): void {
+  editPlan(ID: string, date: number, month: number, newDescription: string, newTitle: string): void {
     const year = 2025;
     const blocks = [...this.blocks()];
 
@@ -99,13 +101,40 @@ export class LocalStorageService {
     if (!block) return;
 
     const plan = block.plans.find(plan => plan.id === ID);
-    if (plan) plan.title = newTitle;
+    if (plan) {
+      plan.title = newTitle;
+      plan.description = newDescription;
+    }
 
     this.saveDateBlocks(blocks);
   }
 
   clearAppData(): void {
     localStorage.removeItem(this.storageKey);
-    this.blocks.set([]);
+    localStorage.removeItem('welcomeSeen');
+    window.location.reload();
+  }
+
+  clearPastAppData(): void {
+    const blocks = [...this.blocks()];
+    const year = 2025;
+
+    const currentDate = this.calendarService.currentDate;
+    const currentMonth = currentDate.getMonth();
+    const currentDay = currentDate.getDate(); 
+    
+    const filteredBlocks = blocks.filter(block => {
+        if (!block.date) return true; 
+        
+        if (block.year > year) return true; 
+        if (block.year < year) return false; 
+        
+        if (block.month > currentMonth) return true; 
+        if (block.month < currentMonth) return false; 
+        
+        return block.date >= currentDay; 
+    });
+    
+    this.saveDateBlocks(filteredBlocks);
   }
 }

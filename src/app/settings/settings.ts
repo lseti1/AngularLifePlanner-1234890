@@ -11,20 +11,29 @@ import { LocalStorageService } from '../services/local-storage-service';
 export class Settings {
   public isVisible = signal<boolean>(true);
   public clearAllButtonText = signal<string>("Clear ALL Plans & Data")
+  public clearPastButtonText = signal<string>("Clear PAST Plans")
 
   constructor(
     private settingsService: SettingsService,
     private localStorageService: LocalStorageService
   ) {}
 
-  onClearData(): void {
+  onClearAllData(): void {
     this.clearAllButtonText.set("Clearing...");
 
     setTimeout(() => {
       this.localStorageService.clearAppData();
       this.settingsService.setIsSettings(false);
     }, 2000);
-    
+  }
+
+  onClearPastData(): void {
+    this.clearPastButtonText.set("Clearing...");
+
+    setTimeout(() => {
+      this.localStorageService.clearPastAppData();
+      this.settingsService.setIsSettings(false);
+    }, 2000);
   }
 
   onClose(): void {

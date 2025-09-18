@@ -16,8 +16,8 @@ export class SelectionPlanView implements OnInit {
   public dateBlocks = computed(() => this.localStorageService.blocks());
   public isEditing = signal<boolean>(false);
   public editPlanButtonText = computed(() => this.isEditing() ? "Finish Editing" : "Edit Plan");
-  public savedPlan: string = '' ;
   public plan: string = '' ;
+  public description: string = '';
   public selectedMonthFirstDayIndex;
 
   constructor(
@@ -28,8 +28,9 @@ export class SelectionPlanView implements OnInit {
   }
 
   ngOnInit() {
-    this.savedPlan = this.selectedPlan;
-    this.plan = this.savedPlan; 
+    let savedPlan = this.selectedPlanDetails;
+    this.plan = savedPlan.title; 
+    this.description = savedPlan.description;
   }
 
   get selectedDateIndex(): number {
@@ -44,14 +45,17 @@ export class SelectionPlanView implements OnInit {
     return this.calendarService.selectedPlanIndex();
   }
 
-  get selectedPlan(): string {
+  get selectedPlanDetails(): { title: string; description: string } {
     const selectDateBlock = this.dateBlocks().find(block => block.month === this.selectedMonthIndex && block.date === this.selectedDateIndex);
-    return selectDateBlock?.plans.find(plan => plan.id === this.selectedPlanIndex)?.title ?? '';
+    return {
+      title: selectDateBlock?.plans.find(plan => plan.id === this.selectedPlanIndex)?.title ?? '',
+      description: selectDateBlock?.plans.find(plan => plan.id === this.selectedPlanIndex)?.description ?? ''
+    };
   }
 
   onSubmit(planData: NgForm): void {
     this.calendarService.setHasSelectedPlan(false);
-    this.localStorageService.editPlan(this.selectedPlanIndex, this.selectedDateIndex, this.selectedMonthIndex, this.plan);
+    this.localStorageService.editPlan(this.selectedPlanIndex, this.selectedDateIndex, this.selectedMonthIndex, this.description, this.plan);
   }
 
   onEditPlan(): void {
