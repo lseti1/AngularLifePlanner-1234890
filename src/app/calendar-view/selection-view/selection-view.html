@@ -5,15 +5,19 @@
             <ul class="flex flex-col break-words w-full gap-1 h-full">
                     @for (plan of selectedDatePlans(); track plan.id) {
                         <li (click)="onSelectPlan(plan.id)" class="flex flex-col border bg-gray-100 p-2 gap-2 hover:bg-gray-200 cursor-pointer">
-                            <div class="flex flex-row justify-between">
-                                <div class="flex flex-row flex items-center justify-center gap-4">
+                            <div class="flex flex-row justify-between w-full">
+                                <div class="grid grid-cols-[auto_3fr_2fr] items-center justify-start w-full gap-4">
                                     @if (plan.completed) { <fa-icon class="mt-0.5" [icon]="faCheckCircle"></fa-icon> }
                                     @else { <fa-icon class="mt-0.5" [icon]="faCheckCircleRegular"></fa-icon> }
-                                    <p class="">{{ plan.title }}</p>
-                                </div>
-                                <div class="flex flex-row gap-2">
-                                    <button type="button" class="red-btn" (click)="onRemovePlan(plan.id, selectedDateIndex, selectedMonthIndex, $event)">Remove</button>
-                                    <button type="button" [ngClass]="plan.completed ? 'blue-btn' : 'green-btn'" (click)="onMarkPlanComplete(plan.id, selectedDateIndex, selectedMonthIndex, $event)">{{ plan.completed ? 'Mark Incomplete' : 'Mark Complete' }}</button>
+                                    <div class="w-full overflow-hidden">
+                                        <p class="truncate">{{ plan.title }}</p>
+                                        <p class="truncate text-xs text-gray-400">{{ plan.description }}</p>
+                                    </div>
+                                    
+                                    <div class="flex flex-row gap-2 justify-end">
+                                        <button type="button" class="red-btn" (click)="onRemovePlan(plan.id, selectedDateIndex, selectedMonthIndex, $event)">Remove</button>
+                                        <button type="button" [ngClass]="plan.completed ? 'blue-btn' : 'green-btn'" (click)="onMarkPlanComplete(plan.id, selectedDateIndex, selectedMonthIndex, $event)">{{ plan.completed ? 'Mark Incomplete' : 'Mark Complete' }}</button>
+                                    </div>
                                 </div>
                             </div>
                         </li>
