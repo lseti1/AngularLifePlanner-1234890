@@ -11,7 +11,7 @@ import { LocalStorageService } from '../services/local-storage-service';
 export class Settings {
   public isVisible = signal<boolean>(true);
   public clearAllButtonText = signal<string>("Clear ALL Plans & Data")
-  public clearPastButtonText = signal<string>("Clear PAST Plans & Data")
+  public clearPastButtonText = signal<string>("Clear PAST Plans")
 
   constructor(
     private settingsService: SettingsService,

@@ -107,7 +107,8 @@ export class LocalStorageService {
 
   clearAppData(): void {
     localStorage.removeItem(this.storageKey);
-    this.blocks.set([]);
+    localStorage.removeItem('welcomeSeen');
+    window.location.reload();
   }
 
   clearPastAppData(): void {
