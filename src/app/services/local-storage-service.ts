@@ -1,4 +1,5 @@
 import { Injectable, signal } from '@angular/core';
+import { CalendarService } from './calendar-service';
 
 export interface Plan {
   id: string;
@@ -21,7 +22,7 @@ export class LocalStorageService {
   private storageKey = 'appData';
   
   constructor(
-
+    private calendarService: CalendarService
   ) {
     this.initialiseData();
     this.blocks.set(this.loadFromStorage());
@@ -107,5 +108,28 @@ export class LocalStorageService {
   clearAppData(): void {
     localStorage.removeItem(this.storageKey);
     this.blocks.set([]);
+  }
+
+  clearPastAppData(): void {
+    const blocks = [...this.blocks()];
+    const year = 2025;
+
+    const currentDate = this.calendarService.currentDate;
+    const currentMonth = currentDate.getMonth();
+    const currentDay = currentDate.getDate(); 
+    
+    const filteredBlocks = blocks.filter(block => {
+        if (!block.date) return true; 
+        
+        if (block.year > year) return true; 
+        if (block.year < year) return false; 
+        
+        if (block.month > currentMonth) return true; 
+        if (block.month < currentMonth) return false; 
+        
+        return block.date >= currentDay; 
+    });
+    
+    this.saveDateBlocks(filteredBlocks);
   }
 }
