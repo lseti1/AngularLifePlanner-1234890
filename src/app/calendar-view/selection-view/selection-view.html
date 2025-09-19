@@ -10,7 +10,7 @@
                                     @if (plan.completed) { <fa-icon class="mt-0.5" [icon]="faCheckCircle"></fa-icon> }
                                     @else { <fa-icon class="mt-0.5" [icon]="faCheckCircleRegular"></fa-icon> }
                                     <div class="w-full overflow-hidden">
-                                        <p class="truncate">{{ plan.title }}</p>
+                                        <p class="truncate text-lg">{{ plan.title }}</p>
                                         <p class="truncate text-xs text-gray-400">{{ plan.description }}</p>
                                     </div>
                                     
@@ -31,12 +31,12 @@
         </div>
         <div [ngClass]="{'hidden' : selectionViewType() !== 'adding'}" class="w-full flex flex-row gap-2">
             <input  [(ngModel)]="plan" name="planText" id="planText" type="text" class="bg-white border w-full px-2" placeholder="Enter Plan Here..."/>
-            <button [ngClass]="{'opacity-20 pointer-pointer-events-none' : plan === '' }" type="button" class="black-btn" (click)="onClear()">Clear</button>
-            <button [ngClass]="{'opacity-20 pointer-pointer-events-none' : plan === '' }" (click)="onAddPlan(selectedDateIndex, selectedMonthIndex, plan)" type="button" class="blue-btn">Add Plan</button>
+            <button [ngClass]="{'opacity-20 pointer-events-none' : plan === '' }" type="button" class="black-btn" (click)="onClear()">Clear</button>
+            <button [ngClass]="{'opacity-20 pointer-events-none' : plan === '' }" (click)="onAddPlan(selectedDateIndex, selectedMonthIndex, plan)" type="button" class="blue-btn">Add Plan</button>
         </div>
         
         <div class="flex flex-row gap-4">
-            <button (click)="toggleSelectionView('adding')" type="button" class="blue-btn">{{ AddPlansText() }}</button>
+            <button [ngClass]="{'hidden' : isPastMonthDay(selectedDateIndex) }" (click)="toggleSelectionView('adding')" type="button" class="blue-btn">{{ AddPlansText() }}</button>
             <button type="submit" class="green-btn">Close</button>
         </div>
         <button type="submit" class="absolute top-2 right-4 text-2xl font-semibold hover:text-black/50">X</button>
