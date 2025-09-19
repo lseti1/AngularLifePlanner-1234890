@@ -37,7 +37,10 @@ export class CalendarService {
 
   getSelectedMonthStartDate(month: number): number {
     const firstOfMonth = new Date(2025, month, 1);
-    return firstOfMonth.getDay();
+    if (firstOfMonth.getDay() === 0) {
+      return 7;
+    } else
+      return firstOfMonth.getDay();
   }
 
   getSelectedMonthLastDate(month: number): number {

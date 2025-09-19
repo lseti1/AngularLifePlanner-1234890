@@ -38,6 +38,7 @@ export class CalendarView {
 
   setSelectedMonthIndex(index: number): void {
     this.calendarService.setSelectedMonth(index);
+    console.log( this.selectedMonthFirstDayIndex());
   }
 
   isValidCalendarDay(day: number): boolean { // This is relating to hiding blocks before the 1st day and after the last day of the month
