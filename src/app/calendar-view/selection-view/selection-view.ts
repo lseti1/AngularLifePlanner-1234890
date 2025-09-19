@@ -29,6 +29,7 @@ export class SelectionView {
   public AddPlansText = computed(() => this.selectionViewType() !== 'adding' ? 'Add Plans' : 'Finish Adding');
   public dateBlocks = computed(() => this.localStorageService.blocks());
   public todaysDate = computed(() => this.calendarService.currentDate);
+  public validSelectedPlan = computed(() => this.isPastMonthDay());
   public currentPlanIndex: number = 0;
 
   constructor(
@@ -96,9 +97,9 @@ export class SelectionView {
     this.calendarService.setSelectedPlanIndex(ID);
   }
 
-  isPastMonthDay(day: number): boolean { 
+  isPastMonthDay(): boolean { 
     const isPastMonth = this.selectedMonthIndex < this.calendarService.currentMonthIndex();
-    const isPastDay = day < this.calendarService.currentDate.getDate() && this.selectedMonthIndex <= this.calendarService.currentMonthIndex();
+    const isPastDay = this.selectedDateIndex < this.calendarService.currentDate.getDate() && this.selectedMonthIndex <= this.calendarService.currentMonthIndex();
     return isPastMonth || isPastDay;
   }
 }

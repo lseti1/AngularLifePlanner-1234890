@@ -24,7 +24,7 @@
                     } 
                     @if (selectedDatePlans().length === 0) {
                         <div class="flex items-center justify-center w-full h-full">
-                            <p class="text-2xl text-gray-400 text-center">No plans added for this date.<br  />Get started by adding one below.</p>
+                            <p class="text-2xl text-gray-400 text-center">No plans added for this date.</p>
                         </div>  
                     }
             </ul>
@@ -36,7 +36,7 @@
         </div>
         
         <div class="flex flex-row gap-4">
-            <button [ngClass]="{'hidden' : isPastMonthDay(selectedDateIndex) }" (click)="toggleSelectionView('adding')" type="button" class="blue-btn">{{ AddPlansText() }}</button>
+            <button [ngClass]="{'hidden' : validSelectedPlan() }" (click)="toggleSelectionView('adding')" type="button" class="blue-btn">{{ AddPlansText() }}</button>
             <button type="submit" class="green-btn">Close</button>
         </div>
         <button type="submit" class="absolute top-2 right-4 text-2xl font-semibold hover:text-black/50">X</button>
