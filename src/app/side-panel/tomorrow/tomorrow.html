@@ -2,7 +2,7 @@
     <div class="bg-white p-2 border overflow-hidden flex flex-col justify-between h-full">
         <div>
             <div class="flex flex-row justify-between border-b-2 items-center border-blue-800 text-2xl">
-                 <h1 class="font-semibold">Happening Tomorrow</h1>
+                 <h1 class="font-semibold">Tomorrow</h1>
                  <p class="text-gray-400 text-base">{{ tomorrowDate | date: 'MMMM'}} {{ tomorrowDate.getDate() | ordinalPipe}}</p>
             </div>
             <ul class="text-lg break-words">
@@ -18,7 +18,7 @@
         </div>
         @if (tomorrowsPlan().length === 0) {
             <div class="flex items-center justify-center w-full h-full">
-                <p class="text-2xl text-gray-400 text-center">No plans added for tomorrow.<br  />Get started by adding one below.</p>
+                <p class="text-lg text-gray-400 text-center">No plans tomorrow.<br  />Get started by adding one below.</p>
             </div>  
         }
         <button (click)="toggleViewTomorrow()" class="blue-btn">{{ tomorrowsPlanButtonText }}</button>
