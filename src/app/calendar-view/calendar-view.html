@@ -20,7 +20,7 @@
                     <li 
                         [ngClass]="{ 'text-black/0': isValidCalendarDay($index), 'pointer-events-none': isValidCalendarDay($index), 'opacity-20': isPastMonthDay($index), 'bg-gray-100': isCurrentDay($index) }"
                         (click)="toggleHasSelectedDate(day - selectedMonthFirstDayIndex() + 1)" 
-                        class=" relative border p-2 hover:bg-blue-800 hover:text-white cursor-pointer select-none overflow-hidden">
+                        class="relative border p-2 hover:bg-blue-800 hover:text-white cursor-pointer select-none overflow-hidden">
                         {{ day - selectedMonthFirstDayIndex() + 1}}
                         @let dayPlan = getDateBlockPlans(day);
                         @if ( dayPlan.length > 0) {
