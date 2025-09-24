@@ -30,7 +30,7 @@
             </ul>
         </div>
         <div [ngClass]="{'hidden' : selectionViewType() !== 'adding'}" class="w-full flex flex-row gap-2">
-            <input  [(ngModel)]="plan" name="planText" id="planText" type="text" class="bg-white border w-full px-2" placeholder="Enter Plan Here..."/>
+            <input  [(ngModel)]="plan" name="planText" id="planText" type="text" class="bg-white border w-full px-2" placeholder="Enter Plan Here..." maxlength="50"/>
             <button [ngClass]="{'opacity-20 pointer-events-none' : plan === '' }" type="button" class="black-btn" (click)="onClear()">Clear</button>
             <button [ngClass]="{'opacity-20 pointer-events-none' : plan === '' }" (click)="onAddPlan(selectedDateIndex, selectedMonthIndex, plan)" type="button" class="blue-btn">Add Plan</button>
         </div>

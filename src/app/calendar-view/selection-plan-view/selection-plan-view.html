@@ -4,7 +4,7 @@
         
         <div class="w-[70%]">
             <h1>Plan:</h1>
-            <input [ngClass]="{'pointer-events-none bg-white' : !isEditing()}" class="flex flex-col border bg-gray-100 p-2 gap-2 w-full" id="plan" name="plan" type="text" [(ngModel)]="plan"/>
+            <input [ngClass]="{'pointer-events-none bg-white' : !isEditing()}" class="flex flex-col border bg-gray-100 p-2 gap-2 w-full" id="plan" name="plan" type="text" [(ngModel)]="plan" maxlength="50"/>
         </div>
         <div class="w-[70%]">
             <h1>Description:</h1>
