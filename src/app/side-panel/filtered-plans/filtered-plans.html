@@ -4,7 +4,7 @@
             <h1 class="font-semibold border-b-2 border-blue-800">Coming Up</h1>
             <ul class="flex flex-col gap-1 list-disc list-inside break-words mt-1">
                 @for (block of dateBlocks().slice(0, 5); track block) {
-                    <li  class="flex flex-row justify-between items-center border bg-gray-100 px-2 py-1">
+                    <li  class="flex flex-row justify-between items-center border bg-gray-100 p-2">
                         <div class="flex flex-row gap-1">
                             <p class="font-semibold">{{ months[block.month] }} {{ block.date | ordinalPipe }}:</p>
                             @for (plan of block.plans.slice(0, 5); track plan.id) {

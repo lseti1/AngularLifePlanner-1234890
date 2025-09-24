@@ -1,7 +1,7 @@
 <div class="relative w-full h-full flex items-center justify-center">
     <div class="border w-[90%] h-[90%] shadow-sm">
         <div class="border flex items-center justify-center h-[8%]">
-            <select class="text-3xl bg-white text-center border-b-2 border-blue-800/0 hover:border-blue-800 cursor-pointer " [(ngModel)]="selectedMonthIndex">
+            <select class="text-xl bg-white text-center border-b-2 border-blue-800/0 hover:border-blue-800 cursor-pointer " [(ngModel)]="selectedMonthIndex">
                 @for (month of months; track month) {
                     <option class="text-xl" (click)="setSelectedMonthIndex($index)" [value]="$index">{{ month }}</option>   
                 }
@@ -20,12 +20,12 @@
                     <li 
                         [ngClass]="{ 'text-black/0': isValidCalendarDay($index), 'pointer-events-none': isValidCalendarDay($index), 'opacity-20': isPastMonthDay($index), 'bg-gray-100': isCurrentDay($index) }"
                         (click)="toggleHasSelectedDate(day - selectedMonthFirstDayIndex() + 1)" 
-                        class="relative border p-2 hover:bg-blue-800 hover:text-white cursor-pointer select-none overflow-hidden">
+                        class="relative border p-2 hover:bg-blue-800 hover:text-white cursor-pointer select-none overflow-hidden text-sm">
                         {{ day - selectedMonthFirstDayIndex() + 1}}
                         @let dayPlan = getDateBlockPlans(day);
                         @if ( dayPlan.length > 0) {
                         <div class="flex flex-col">
-                            <p class="absolute flex items-center justify-center text-center top-0 right-0 bg-blue-800 text-white px-2">{{ dayPlan.length }} plans</p>
+                            <p class="absolute flex items-center justify-center text-center top-0 right-0 bg-blue-800 text-white px-2">{{ dayPlan.length }}</p>
                             @for (plan of dayPlan.slice(0,3); track plan) {
                                 <p class="whitespace-nowrap">- {{ plan.title }}</p>
                             }    
