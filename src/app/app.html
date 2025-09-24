@@ -1,8 +1,8 @@
 <div class="grid grid-rows-[5%_95%] h-screen w-full tracking-tighter font-light">
   <app-top-bar />
-  <div class="grid grid-cols-[30%_70%] h-full w-full">
-    <app-side-panel />
-    <app-calendar-view />
+  <div class="h-full w-full flex flex-row">
+    <app-side-panel class="min-w-[30%] overflow-auto"/>
+    <app-calendar-view class="min-w-[70%] overflow-auto"/>
   </div>
   @if (isWelcomeMessage) {
   <app-welcome-message (isWelcomeMessageVisible)="setIsWelcomeMessage($event)" />
