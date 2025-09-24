@@ -1,6 +1,6 @@
 <div class="absolute flex items-center left-0 top-0 w-full h-full justify-center bg-black/5">
-    <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="relative flex flex-col justify-center items-center bg-white w-[45%] h-[45%] shadow-sm p-8 gap-4 text-xl">
-        <h1 class="text-3xl">Viewing plan for {{ months[selectedMonthIndex] }} {{ selectedDateIndex | ordinalPipe }} </h1>
+    <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="relative flex flex-col justify-center items-center bg-white w-[45%] h-[45%] shadow-sm p-8 gap-4">
+        <h1 class="text-lg font-semibold">Viewing plan for {{ months[selectedMonthIndex] }} {{ selectedDateIndex | ordinalPipe }} </h1>
         
         <div class="w-[70%]">
             <h1>Plan:</h1>
@@ -17,6 +17,6 @@
                 <button type="submit" class="blue-btn" (click)="onEditPlan()">Save & Close</button>
             }
         </div>
-        <button type="button" (click)="onReturn()" class="absolute top-2 left-2 text-white hover:text-white/50 tracking-tighter bg-blue-700 py-1 px-2 border text-base">&lt; Return</button>
+        <button type="button" (click)="onReturn()" class="absolute top-2 left-2 text-black/50 hover:text-black hover:bg-gray-300 rounded tracking-tighter py-1 px-2 text-base">&lt;</button>
     </form>
 </div>
