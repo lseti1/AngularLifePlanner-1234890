@@ -1,7 +1,10 @@
 <div class="flex flex-col w-full h-full px-4 py-2">
-    <div class="flex flex-col justify-between bg-white p-2 border h-full">
+    <div class="group flex flex-col justify-between bg-white p-2 border h-full">
         <div>
-            <h1 class="font-semibold border-b-2 border-blue-800">Coming Up</h1>
+            <div class=" flex flex-row gap-2 border-b-2 border-blue-800 items-center">
+                <h1 class="font-semibold ">Coming Up </h1>
+                <p class="group-hover:opacity-100 opacity-0 text-gray-400 text-sm">Next 5 scheduled days after {{ tomorrowDate | date: 'MMMM'}} {{ tomorrowDate.getDate() | ordinalPipe}}:</p>
+            </div>
             <ul class="flex flex-col gap-1 list-disc list-inside break-words mt-1">
                 @for (block of dateBlocks().slice(0, 5); track block) {
                     <li  class="flex flex-row justify-between items-center border bg-gray-100 p-2">
@@ -21,11 +24,10 @@
             </ul>
             @if (dateBlocks().length === 0) {
                 <div class="flex items-center justify-center w-full h-full">
-                    <p class="text-gray-400 text-center">No other plans coming up.</p>
+                    <p class="text-gray-400 text-center">No scheduled plans coming up</p>
                 </div>  
             }
         </div>
-        <p class="text-center text-sm text-gray-400">Your next 5 scheduled days will appear here</p>
     </div>
     
 </div>

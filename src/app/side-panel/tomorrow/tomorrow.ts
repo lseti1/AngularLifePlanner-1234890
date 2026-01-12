@@ -32,7 +32,7 @@ export class Tomorrow {
 
   get tomorrowsPlanButtonText(): string {
     const plans = this.tomorrowsPlan();
-    return plans.length <= 5 ? "Add plan for tomorrow" : `View ${plans.length - 5} more`;
+    return plans.length <= 5 ? "View/add plan for tomorrow" : `View ${plans.length - 5} more`;
   }
 
   updateTomorrowsPlan(): Plan[] {

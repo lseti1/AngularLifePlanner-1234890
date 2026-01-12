@@ -29,7 +29,7 @@ export class Today {
 
   get todaysPlanButtonText(): string {
     const plans = this.todaysPlan();
-    return plans.length <= 5 ? "Add plan for today" : `View ${plans.length - 5} more`;
+    return plans.length <= 5 ? "View/add plan for today" : `View ${plans.length - 5} more`;
   }
 
   updateTodaysPlan(): Plan[] {
