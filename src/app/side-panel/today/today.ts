@@ -6,6 +6,7 @@ import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { faCheckCircle as faCheckCircleRegular } from '@fortawesome/free-regular-svg-icons';
 import { DatePipe } from '@angular/common';
 import { OrdinalPipePipe } from '../../pipes/ordinal-pipe-pipe';
+import { YEAR } from '../../app';
 
 @Component({
   selector: 'app-today',
@@ -34,10 +35,9 @@ export class Today {
   updateTodaysPlan(): Plan[] {
     const day = this.calendarService.getCurrentDateDay();
     const month = this.calendarService.currentMonthIndex();
-    const year = 2025;
 
     const block = this.localStorageService.blocks().find(
-      block => block.date === day && block.month === month && block.year === year
+      block => block.date === day && block.month === month && block.year === YEAR
     );
 
     return block ? [...block.plans] : [];

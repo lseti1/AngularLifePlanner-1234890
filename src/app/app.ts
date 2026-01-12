@@ -8,6 +8,8 @@ import { WelcomeMessage } from './welcome-message/welcome-message';
 import { Settings } from './settings/settings';
 import { SettingsService } from './services/settings-service';
 
+export const YEAR = new Date().getFullYear();
+
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, TopBar, SidePanel, CalendarView, FontAwesomeModule, WelcomeMessage, Settings],
