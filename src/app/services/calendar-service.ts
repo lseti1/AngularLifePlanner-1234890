@@ -1,4 +1,5 @@
 import { Injectable, signal } from '@angular/core';
+import { YEAR } from '../app';
 
 @Injectable({ providedIn: 'root' })
 export class CalendarService {
@@ -36,7 +37,7 @@ export class CalendarService {
   }
 
   getSelectedMonthStartDate(month: number): number {
-    const firstOfMonth = new Date(2025, month, 1);
+    const firstOfMonth = new Date(YEAR, month, 1);
     if (firstOfMonth.getDay() === 0) {
       return 7;
     } else
@@ -44,7 +45,7 @@ export class CalendarService {
   }
 
   getSelectedMonthLastDate(month: number): number {
-    const lastOfMonth = new Date(2025, month + 1, 0);
+    const lastOfMonth = new Date(YEAR, month + 1, 0);
     return lastOfMonth.getDate();
   }
 

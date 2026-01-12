@@ -1,5 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 import { CalendarService } from './calendar-service';
+import { YEAR } from '../app';
 
 export interface Plan {
   id: string;
@@ -46,13 +47,12 @@ export class LocalStorageService {
   }
 
   addPlan(date: number, month: number, plan: string, description: string, isCompleted: boolean): void {
-    const year = 2025;
     const blocks = [...this.blocks()];
 
-    let block = blocks.find(block => block.date === date && block.month === month && block.year === year);
+    let block = blocks.find(block => block.date === date && block.month === month && block.year === YEAR);
 
     if (!block) {
-      block = { id: crypto.randomUUID(), date, month, year, plans: []};
+      block = { id: crypto.randomUUID(), date, month, year: YEAR, plans: []};
       blocks.push(block);
     }
 
@@ -67,10 +67,9 @@ export class LocalStorageService {
   }
 
   togglePlanComplete(ID: string, date: number, month: number): void {
-    const year = 2025;
     const blocks = [...this.blocks()];
 
-    const block = blocks.find(block => block.date === date && block.month === month && block.year === year);
+    const block = blocks.find(block => block.date === date && block.month === month && block.year === YEAR);
     if (!block) return;
 
     const plan = block.plans.find(plan => plan.id === ID);
@@ -81,10 +80,9 @@ export class LocalStorageService {
   }
 
   removePlan(ID: string, date: number, month: number): void {
-    const year = 2025;
     const blocks = [...this.blocks()];
 
-    const block = blocks.find(block => block.date === date && block.month === month && block.year === year);
+    const block = blocks.find(block => block.date === date && block.month === month && block.year === YEAR);
     if (!block) return;
 
     block.plans = block.plans.filter(plan => plan.id !== ID); // To remove the plan
@@ -94,10 +92,9 @@ export class LocalStorageService {
   }
 
   editPlan(ID: string, date: number, month: number, newDescription: string, newTitle: string): void {
-    const year = 2025;
     const blocks = [...this.blocks()];
 
-    const block = blocks.find(block => block.date === date && block.month === month && block.year === year);
+    const block = blocks.find(block => block.date === date && block.month === month && block.year === YEAR);
     if (!block) return;
 
     const plan = block.plans.find(plan => plan.id === ID);
@@ -117,7 +114,6 @@ export class LocalStorageService {
 
   clearPastAppData(): void {
     const blocks = [...this.blocks()];
-    const year = 2025;
 
     const currentDate = this.calendarService.currentDate;
     const currentMonth = currentDate.getMonth();
@@ -126,8 +122,8 @@ export class LocalStorageService {
     const filteredBlocks = blocks.filter(block => {
         if (!block.date) return true; 
         
-        if (block.year > year) return true; 
-        if (block.year < year) return false; 
+        if (block.year > YEAR) return true; 
+        if (block.year < YEAR) return false; 
         
         if (block.month > currentMonth) return true; 
         if (block.month < currentMonth) return false; 

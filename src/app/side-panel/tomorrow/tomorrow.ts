@@ -6,6 +6,7 @@ import { faCheckCircle as faCheckCircleRegular } from '@fortawesome/free-regular
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DatePipe } from '@angular/common';
 import { OrdinalPipePipe } from '../../pipes/ordinal-pipe-pipe';
+import { YEAR } from '../../app';
 
 @Component({
   selector: 'app-tomorrow',
@@ -37,10 +38,9 @@ export class Tomorrow {
   updateTomorrowsPlan(): Plan[] {
     const day = this.calendarService.getCurrentDateDay() + 1;
     const month = this.calendarService.currentMonthIndex();
-    const year = 2025;
 
     const block = this.localStorageService.blocks().find(
-      block => block.date === day && block.month === month && block.year === year
+      block => block.date === day && block.month === month && block.year === YEAR
     );
 
     return block ? [...block.plans] : [];
