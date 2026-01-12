@@ -1,9 +1,9 @@
 <div class="flex flex-col w-full h-full px-4 py-2">
-    <div class="bg-white p-2 border overflow-hidden flex flex-col justify-between h-full">
+    <div class="group bg-white p-2 border overflow-hidden flex flex-col justify-between h-full">
         <div>
-            <div class="flex flex-row justify-between border-b-2 items-center border-blue-800">
+            <div class="flex flex-row gap-2 border-b-2 items-center border-blue-800">
                  <h1 class="font-semibold">Tomorrow</h1>
-                 <p class="text-gray-400 text-sm">{{ tomorrowDate | date: 'MMMM'}} {{ tomorrowDate.getDate() | ordinalPipe}}</p>
+                 <p class="group-hover:opacity-100 opacity-0 text-gray-400 text-none text-sm">{{ tomorrowDate | date: 'MMMM'}} {{ tomorrowDate.getDate() | ordinalPipe}}</p>
             </div>
             <ul class="text-base break-words">
                 @for (plan of tomorrowsPlan().slice(0, 5); track plan.id) {
@@ -18,7 +18,7 @@
         </div>
         @if (tomorrowsPlan().length === 0) {
             <div class="flex items-center justify-center w-full h-full">
-                <p class="text-gray-400 text-center">No plans tomorrow.<br  />Get started by adding one below.</p>
+                <p class="text-gray-400 text-center">No plans scheduled for tomorrow</p>
             </div>  
         }
         <button (click)="toggleViewTomorrow()" class="blue-btn">{{ tomorrowsPlanButtonText }}</button>

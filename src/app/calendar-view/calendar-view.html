@@ -1,20 +1,20 @@
 <div class="relative w-full h-full flex items-center justify-center">
-    <div class="border w-[95%] h-[95%] shadow-sm">
-        <div class="border flex items-center justify-center h-[8%]">
+    <div class="w-full h-full">
+        <div class="border flex items-center justify-center h-[6%]">
             <select class="text-xl bg-white text-center border-b-2 border-blue-800/0 hover:border-blue-800 cursor-pointer " [(ngModel)]="selectedMonthIndex">
                 @for (month of months; track month) {
                     <option class="text-xl" (click)="setSelectedMonthIndex($index)" [value]="$index">{{ month }}</option>   
                 }
             </select>
         </div>
-        <div class="border flex items-center justify-center h-[5%] w-full">
+        <div class="border flex items-center justify-center h-[5%] w-full select-none">
             <ul class="grid grid-cols-7 text-center w-full">
                 @for (day of daysOfWeek; track day) {
                     <li>{{ day }}</li>
                 }
             </ul>
         </div>
-        <div class="border h-[87%]">
+        <div class="border h-[89%]">
             <ul class="grid grid-cols-7 grid-rows-6 h-full w-full">
                 @for (day of days; track day) {
                     <li 
@@ -25,7 +25,7 @@
                         @let dayPlan = getDateBlockPlans(day);
                         @if ( dayPlan.length > 0) {
                         <div class="flex flex-col">
-                            <p class="absolute flex items-center justify-center text-center top-0 right-0 bg-blue-800 text-white px-2">{{ dayPlan.length }}</p>
+                            <p class="absolute flex items-center justify-center text-center top-2 right-2 bg-blue-800 text-white px-2 rounded-md border">{{ dayPlan.length }}</p>
                             @for (plan of dayPlan.slice(0,3); track plan) {
                                 <p class="whitespace-nowrap">- {{ plan.title }}</p>
                             }    

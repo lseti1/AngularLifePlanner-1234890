@@ -2,10 +2,11 @@ import { Component, computed } from '@angular/core';
 import { LocalStorageService } from '../../services/local-storage-service';
 import { OrdinalPipePipe } from "../../pipes/ordinal-pipe-pipe";
 import { CalendarService } from '../../services/calendar-service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-filtered-plans',
-  imports: [OrdinalPipePipe],
+  imports: [OrdinalPipePipe, DatePipe],
   templateUrl: './filtered-plans.html',
   styleUrl: './filtered-plans.css'
 })
@@ -24,11 +25,16 @@ export class FilteredPlans {
         return aDate - bDate;
       });
   });
+  public tomorrowDate: Date;
   
   constructor(
     private localStorageService: LocalStorageService,
     private calendarService: CalendarService
-  ) {}
+  ) {
+    const today = this.calendarService.getCurrentDate();
+    this.tomorrowDate = new Date(today);
+    this.tomorrowDate.setDate(today.getDate() + 1);
+  }
 
   onViewPlan(month: number, date: number): void {
     this.calendarService.setHasSelectedDate(true);
