@@ -3,10 +3,12 @@ import { LocalStorageService } from '../../services/local-storage-service';
 import { OrdinalPipePipe } from "../../pipes/ordinal-pipe-pipe";
 import { CalendarService } from '../../services/calendar-service';
 import { DatePipe } from '@angular/common';
+import { faCalendarAlt, } from '@fortawesome/free-regular-svg-icons';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @Component({
   selector: 'app-filtered-plans',
-  imports: [OrdinalPipePipe, DatePipe],
+  imports: [OrdinalPipePipe, DatePipe, FontAwesomeModule],
   templateUrl: './filtered-plans.html',
   styleUrl: './filtered-plans.css'
 })
@@ -26,6 +28,7 @@ export class FilteredPlans {
       });
   });
   public tomorrowDate: Date;
+  public faCalendarChecked = faCalendarAlt;
   
   constructor(
     private localStorageService: LocalStorageService,
