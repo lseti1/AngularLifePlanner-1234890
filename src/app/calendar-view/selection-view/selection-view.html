@@ -1,22 +1,29 @@
 <div class="absolute flex items-center left-0 top-0 w-full h-full justify-center bg-black/5">
-    <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="relative flex flex-col justify-start items-center bg-white w-[55%] h-[55%] shadow-sm p-8 gap-4">
-        <h1 class="text-lg">Viewing plans for {{ months[selectedMonthIndex] }} {{ selectedDateIndex | ordinalPipe }} </h1>
+    <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="relative flex flex-col justify-start items-start bg-white w-[55%] h-[55%] shadow-sm p-8 gap-4">
+        <div class="flex w-full justify-between items-center">
+            <div>
+                <h1 class="text-xl">{{ months[selectedMonthIndex] }} {{ selectedDateIndex | ordinalPipe }} </h1>
+                <p class="text-gray-400 text-sm">{{ selectedDatePlans().length }} Total Plans</p>
+            </div>
+            <fa-icon [icon]="selectionViewType() === 'adding' ? faCalendarFinished : faCalendarAdd"  [ngClass]="{'hidden' : validSelectedPlan() }" (click)="toggleSelectionView('adding')" class="text-2xl cursor-pointer"></fa-icon>
+        </div>
         <div class="w-full overflow-auto h-full">
             <ul class="flex flex-col break-words w-full gap-1 h-full">
                     @for (plan of selectedDatePlans(); track plan.id) {
                         <li (click)="onSelectPlan(plan.id)" class="flex flex-col border bg-gray-100 px-1 py-2 gap-2 hover:bg-gray-200 cursor-pointer">
                             <div class="flex flex-row justify-between w-full">
-                                <div class="grid grid-cols-[auto_3fr_2fr] items-center justify-start w-full gap-4">
-                                    @if (plan.completed) { <fa-icon class="mt-0.5" [icon]="faCheckCircle"></fa-icon> }
-                                    @else { <fa-icon class="mt-0.5" [icon]="faCheckCircleRegular"></fa-icon> }
+                                <div class="grid grid-cols-[auto_3fr_2fr] items-center justify-start w-full">
+                                    <fa-icon
+                                        class="mx-2"
+                                        (click)="onMarkPlanComplete(plan.id, selectedDateIndex, selectedMonthIndex, $event)"
+                                        [icon]="plan.completed ? faCheckCircle : faCheckCircleRegular">
+                                    </fa-icon>
                                     <div class="w-full overflow-hidden">
                                         <p class="truncate text">{{ plan.title }}</p>
                                         <p class="truncate text-xs text-gray-400">{{ plan.description }}</p>
                                     </div>
-                                    
-                                    <div class="flex flex-row gap-2 justify-end">
-                                        <button type="button" class="red-btn" (click)="onRemovePlan(plan.id, selectedDateIndex, selectedMonthIndex, $event)">Delete</button>
-                                        <button type="button" [ngClass]="plan.completed ? 'blue-btn' : 'green-btn'" (click)="onMarkPlanComplete(plan.id, selectedDateIndex, selectedMonthIndex, $event)">{{ plan.completed ? 'Uncheck' : 'Check' }}</button>
+                                    <div class="flex justify-end px-2">
+                                        <fa-icon type="button" class="text-2xl text-red-600 hover:text-black cursor-pointer" (click)="onRemovePlan(plan.id, selectedDateIndex, selectedMonthIndex, $event)" [icon]="faDelete">Delete</fa-icon>
                                     </div>
                                 </div>
                             </div>
@@ -30,15 +37,10 @@
             </ul>
         </div>
         <div [ngClass]="{'hidden' : selectionViewType() !== 'adding'}" class="w-full flex flex-row gap-2">
-            <input  [(ngModel)]="plan" name="planText" id="planText" type="text" class="bg-white border w-full px-2" placeholder="Enter Plan Here..." maxlength="50"/>
+            <input  [(ngModel)]="plan" name="planText" id="planText" type="text" class="bg-white border w-full px-2" placeholder="Add Plan Here..." maxlength="50"/>
             <button [ngClass]="{'opacity-20 pointer-events-none' : plan === '' }" type="button" class="black-btn" (click)="onClear()">Clear</button>
             <button [ngClass]="{'opacity-20 pointer-events-none' : plan === '' }" (click)="onAddPlan(selectedDateIndex, selectedMonthIndex, plan)" type="button" class="blue-btn">Add Plan</button>
         </div>
-        
-        <div class="flex flex-row gap-4">
-            <button [ngClass]="{'hidden' : validSelectedPlan() }" (click)="toggleSelectionView('adding')" type="button" class="blue-btn">{{ AddPlansText() }}</button>
-            <button type="submit" class="green-btn">Close</button>
-        </div>
-        <button type="submit" class="absolute top-2 right-4 font-semibold hover:text-black/50">X</button>
+        <button type="submit" class="absolute top-2 right-4 font-semibold">X</button>
     </form>
 </div>
