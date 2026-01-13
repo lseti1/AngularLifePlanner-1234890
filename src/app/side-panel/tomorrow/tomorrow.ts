@@ -2,7 +2,7 @@ import { Component, computed } from '@angular/core';
 import { LocalStorageService, Plan } from '../../services/local-storage-service';
 import { CalendarService } from '../../services/calendar-service';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
-import { faCheckCircle as faCheckCircleRegular } from '@fortawesome/free-regular-svg-icons';
+import { faCalendar, faCheckCircle as faCheckCircleRegular } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DatePipe } from '@angular/common';
 import { OrdinalPipePipe } from '../../pipes/ordinal-pipe-pipe';
@@ -18,8 +18,8 @@ export class Tomorrow {
   public tomorrowsPlan = computed(() => this.updateTomorrowsPlan());
   public faCheckCircle = faCheckCircle;
   public faCheckCircleRegular = faCheckCircleRegular;
+  public faCalendarRegular = faCalendar;
   public tomorrowDate: Date;
-
 
   constructor(
     private localStorageService: LocalStorageService,
@@ -32,7 +32,7 @@ export class Tomorrow {
 
   get tomorrowsPlanButtonText(): string {
     const plans = this.tomorrowsPlan();
-    return plans.length <= 5 ? "View/add plan for tomorrow" : `View ${plans.length - 5} more`;
+    return plans.length <= 5 ? "Add Plan" : `View all`;
   }
 
   updateTomorrowsPlan(): Plan[] {

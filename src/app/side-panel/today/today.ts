@@ -2,8 +2,8 @@ import { Component, computed } from '@angular/core';
 import { LocalStorageService, Plan } from '../../services/local-storage-service';
 import { CalendarService } from '../../services/calendar-service'; 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
-import { faCheckCircle as faCheckCircleRegular } from '@fortawesome/free-regular-svg-icons';
+import { faCalendar, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarPlus, faCheckCircle as faCheckCircleRegular } from '@fortawesome/free-regular-svg-icons';
 import { DatePipe } from '@angular/common';
 import { OrdinalPipePipe } from '../../pipes/ordinal-pipe-pipe';
 import { YEAR } from '../../app';
@@ -17,6 +17,8 @@ import { YEAR } from '../../app';
 export class Today {
   public faCheckCircle = faCheckCircle;
   public faCheckCircleRegular = faCheckCircleRegular;
+  public faCalendar = faCalendar;
+  public faCalendarAdd = faCalendarPlus;
   public todaysPlan = computed(() => this.updateTodaysPlan());
   public currentDate: Date;
 
@@ -29,7 +31,7 @@ export class Today {
 
   get todaysPlanButtonText(): string {
     const plans = this.todaysPlan();
-    return plans.length <= 5 ? "View/add plan for today" : `View ${plans.length - 5} more`;
+    return plans.length <= 5 ? "Add Plan" : `View All`;
   }
 
   updateTodaysPlan(): Plan[] {
