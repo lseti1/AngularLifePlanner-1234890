@@ -5,7 +5,7 @@
                 <h1 class="text-xl">{{ months[selectedMonthIndex] }} {{ selectedDateIndex | ordinalPipe }} </h1>
                 <p class="text-gray-400 text-sm">{{ selectedDatePlans().length }} Total Plans</p>
             </div>
-            <fa-icon [icon]="selectionViewType() === 'adding' ? faCalendarFinished : faCalendarAdd"  [ngClass]="{'hidden' : validSelectedPlan() }" (click)="toggleSelectionView('adding')" class="text-2xl cursor-pointer"></fa-icon>
+            <fa-icon [icon]="selectionViewType() === 'adding' ? faCalendarFinished : faCalendarAdd"  [ngClass]="{'hidden' : validSelectedPlan(), 'text-blue-600' : selectionViewType() !== 'adding' }" (click)="toggleSelectionView('adding')" class="text-2xl cursor-pointer"></fa-icon>
         </div>
         <div class="w-full overflow-auto h-full">
             <ul class="flex flex-col break-words w-full gap-1 h-full">
@@ -23,7 +23,7 @@
                                         <p class="truncate text-xs text-gray-400">{{ plan.description }}</p>
                                     </div>
                                     <div class="flex justify-end px-2">
-                                        <fa-icon type="button" class="text-2xl text-red-600 hover:text-black cursor-pointer" (click)="onRemovePlan(plan.id, selectedDateIndex, selectedMonthIndex, $event)" [icon]="faDelete">Delete</fa-icon>
+                                        <fa-icon type="button" class="text-lg text-red-600 cursor-pointer" (click)="onRemovePlan(plan.id, selectedDateIndex, selectedMonthIndex, $event)" [icon]="faDelete">Delete</fa-icon>
                                     </div>
                                 </div>
                             </div>
@@ -37,9 +37,11 @@
             </ul>
         </div>
         <div [ngClass]="{'hidden' : selectionViewType() !== 'adding'}" class="w-full flex flex-row gap-2">
-            <input  [(ngModel)]="plan" name="planText" id="planText" type="text" class="bg-white border w-full px-2" placeholder="Add Plan Here..." maxlength="50"/>
-            <button [ngClass]="{'opacity-20 pointer-events-none' : plan === '' }" type="button" class="black-btn" (click)="onClear()">Clear</button>
-            <button [ngClass]="{'opacity-20 pointer-events-none' : plan === '' }" (click)="onAddPlan(selectedDateIndex, selectedMonthIndex, plan)" type="button" class="blue-btn">Add Plan</button>
+            <div class="flex relative border w-full">
+                <input [(ngModel)]="plan" name="planText" id="planText" type="text" class="bg-white w-full px-2" placeholder="Add Plan Here..." maxlength="50"/>
+                <fa-icon [icon]="faDelete" [ngClass]="{'hidden' : plan === '' }" type="button" class="flex absolute items-center justify-end w-full h-full px-2 cursor-pointer" (click)="onClear()">X</fa-icon>
+            </div>
+            <fa-icon [icon]="faCalendarAdd" [ngClass]="{'opacity-20 pointer-events-none' : plan === '' }" (click)="onAddPlan(selectedDateIndex, selectedMonthIndex, plan)" class="text-2xl cursor-pointer text-blue-600"></fa-icon>
         </div>
         <button type="submit" class="absolute top-2 right-4 font-semibold">X</button>
     </form>
