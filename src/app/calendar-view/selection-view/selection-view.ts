@@ -6,8 +6,8 @@ import { OrdinalPipePipe } from '../../pipes/ordinal-pipe-pipe';
 import { LocalStorageService } from '../../services/local-storage-service';
 import { Plan } from '../../services/local-storage-service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
-import { faCheckCircle as faCheckCircleRegular } from '@fortawesome/free-regular-svg-icons';
+import { faCalendarTimes, faCheckCircle, faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarPlus, faCheckCircle as faCheckCircleRegular } from '@fortawesome/free-regular-svg-icons';
 import { YEAR } from '../../app';
 
 export type selectionViewType = 'viewing' | 'adding' | 'editing';
@@ -24,6 +24,9 @@ export class SelectionView {
   public selectedMonthFirstDayIndex;
   public faCheckCircle = faCheckCircle;
   public faCheckCircleRegular = faCheckCircleRegular;
+  public faDelete = faDeleteLeft;
+  public faCalendarAdd = faCalendarPlus;
+  public faCalendarFinished = faCalendarTimes;
   public selectedDatePlans = computed(() => this.updateSelectedDatePlans());
   public plan: string = '';
   public selectionViewType = signal<selectionViewType>('viewing');
