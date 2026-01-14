@@ -1,22 +1,18 @@
 <div class="absolute flex items-center left-0 top-0 w-full h-full justify-center bg-black/5">
-    <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="relative flex flex-col justify-center items-center bg-white w-[45%] h-[45%] shadow-sm p-8 gap-4">
-        <h1 class="text-lg font-semibold">Viewing plan for {{ months[selectedMonthIndex] }} {{ selectedDateIndex | ordinalPipe }} </h1>
-        
-        <div class="w-[70%]">
-            <h1>Plan:</h1>
-            <input [ngClass]="{'pointer-events-none bg-white' : !isEditing()}" class="flex flex-col border bg-gray-100 p-2 gap-2 w-full" id="plan" name="plan" type="text" [(ngModel)]="plan" maxlength="50"/>
+    <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="relative flex flex-col justify-center items-center bg-white w-[50%] shadow-sm px-8 py-6 gap-4">
+        <div class="w-full flex flex-row items-center justify-start gap-2 border-b-2 py-4">
+            <fa-icon class="text-2xl" [icon]="faCalendar"></fa-icon>
+            <div class="flex flex-col w-full">
+                <input class="w-full text-xl" id="plan" name="plan" type="text" [(ngModel)]="plan" maxlength="50" placeholder="Enter Plan"/>
+                <h1 class="text-sm text-gray-400">{{ months[selectedMonthIndex] }} {{ selectedDateIndex | ordinalPipe }} </h1>
+            </div>
         </div>
-        <div class="w-[70%]">
-            <h1>Description:</h1>
-            <textarea [ngClass]="{'pointer-events-none bg-white' : !isEditing()}" [rows]="3" maxlength="150" class="flex flex-col border bg-gray-100 p-2 gap-2 w-full resize-none" id="description" name="description" type="text" [(ngModel)]="description"></textarea>
+        <div class="w-full flex flex-row items-start justify-start gap-2 py-4">
+            <fa-icon class="text-2xl" [icon]="faDescription"></fa-icon>
+            <textarea [rows]="4" maxlength="150" class="w-full resize-none" id="description" name="description" type="text" placeholder="Enter Description" [(ngModel)]="description"></textarea>
         </div>
         <div class="w-full flex flex-row gap-2 items-center justify-center">
-            @if (!isEditing()) {
-                <button type="button" class="green-btn" (click)="onEditPlan()">Edit Plan</button>
-            } @else {
-                <button type="submit" class="blue-btn" (click)="onEditPlan()">Save & Close</button>
-            }
+            <button type="submit" class="blue-btn" (click)="onEditPlan()">Save & Close</button>
         </div>
-        <button type="button" (click)="onReturn()" class="absolute top-2 left-2 text-black/50 hover:text-black hover:bg-gray-300 rounded tracking-tighter py-1 px-2 text-base">&lt;</button>
     </form>
 </div>
