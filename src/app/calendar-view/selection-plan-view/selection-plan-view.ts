@@ -4,10 +4,13 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { CalendarService } from '../../services/calendar-service';
 import { OrdinalPipePipe } from '../../pipes/ordinal-pipe-pipe';
 import { LocalStorageService, Plan } from '../../services/local-storage-service';
+import { FaIconComponent } from "@fortawesome/angular-fontawesome";
+import { faCalendar } from '@fortawesome/free-regular-svg-icons';
+import { faList } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-selection-plan-view',
-  imports: [FormsModule, CommonModule, OrdinalPipePipe],
+  imports: [FormsModule, CommonModule, OrdinalPipePipe, FaIconComponent],
   templateUrl: './selection-plan-view.html',
   styleUrl: './selection-plan-view.css'
 })
@@ -19,6 +22,8 @@ export class SelectionPlanView implements OnInit {
   public plan: string = '' ;
   public description: string = '';
   public selectedMonthFirstDayIndex;
+  public faCalendar = faCalendar;
+  public faDescription = faList;
 
   constructor(
     private calendarService: CalendarService,
