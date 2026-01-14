@@ -40,6 +40,17 @@ export class CalendarView {
     this.calendarService.setSelectedMonth(index);
   }
 
+  incrementSelectedMonthIndex(index: number): void {
+    console.log("INDEX: ", index);
+    index < 11 ? index +=1 : index = 0;
+    this.calendarService.setSelectedMonth(index);
+  }
+
+  decrementSelectedMonthIndex(index: number): void {
+    index > 0 ? index -=1 : index = 11;
+    this.calendarService.setSelectedMonth(index);
+  }
+
   isValidCalendarDay(day: number): boolean { // This is relating to hiding blocks before the 1st day and after the last day of the month
     const isInvalidDay = day - this.selectedMonthFirstDayIndex() + 1 < 0 || day >= this.selectedMonthLastDayIndex() + this.selectedMonthFirstDayIndex() - 1;
     return isInvalidDay;
