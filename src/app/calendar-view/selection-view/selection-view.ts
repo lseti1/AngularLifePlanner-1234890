@@ -3,10 +3,10 @@ import { Component, computed, Input, OnInit, signal } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CalendarService } from '../../services/calendar-service';
 import { OrdinalPipePipe } from '../../pipes/ordinal-pipe-pipe';
-import { LocalStorageService } from '../../services/local-storage-service';
+import { DateBlock, LocalStorageService } from '../../services/local-storage-service';
 import { Plan } from '../../services/local-storage-service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faCalendarTimes, faCheckCircle, faCircleXmark, faCross, faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarTimes, faCheckCircle, faCircleXmark, } from '@fortawesome/free-solid-svg-icons';
 import { faCalendarPlus, faCheckCircle as faCheckCircleRegular } from '@fortawesome/free-regular-svg-icons';
 import { YEAR } from '../../app';
 
@@ -24,7 +24,6 @@ export class SelectionView {
   public selectedMonthFirstDayIndex;
   public faCheckCircle = faCheckCircle;
   public faCheckCircleRegular = faCheckCircleRegular;
-  // public faDelete = faDeleteLeft;
   public faCalendarAdd = faCalendarPlus;
   public faCalendarFinished = faCalendarTimes;
   public faDelete = faCircleXmark;
@@ -74,9 +73,25 @@ export class SelectionView {
   }
 
   onAddPlan(date: number, month: number, plan: string): void {
-    console.log("From Inside on AddPlan, this.selectedMonthFirstDayIndex = ", this.selectedMonthFirstDayIndex);
-    console.log("From Inside on AddPlan, Pass date variable = ", date);
-    this.localStorageService.addPlan(date, month, plan, '', false);
+    const planInfo: Plan = {
+      id: crypto.randomUUID(),
+      title: plan,
+      type: 'General',
+      description: '', 
+      time: 'Example Time',
+      color: '#95a5a6',
+      completed: false,
+    };
+
+    const dateInfo: DateBlock = {
+      id: crypto.randomUUID(),
+      date: date,
+      month: month,
+      year: 2025,
+      plans: [],
+    };
+
+    this.localStorageService.addPlan(planInfo, dateInfo);
     this.plan = '';
   }
 
