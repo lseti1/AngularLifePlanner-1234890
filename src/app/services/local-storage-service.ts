@@ -1,11 +1,17 @@
 import { Injectable, signal } from '@angular/core';
 import { CalendarService } from './calendar-service';
 import { YEAR } from '../app';
+ 
+export type PlanType = 'General' | 'Work' | 'Personal' | 'Event'; // Matched exactly with colors below
+export type PlanColor = '#95a5a6' | '#2ecc71' | '#3498db' | '#e67e22'; // Grey, Green, Blue, Orange
 
 export interface Plan {
   id: string;
   title: string;
+  type: PlanType;
   description: string;
+  color: PlanColor;
+  time: string; // Will update this properly with a full time selector later
   completed: boolean;
 }
 
@@ -46,17 +52,31 @@ export class LocalStorageService {
     this.blocks.set(blocks);
   }
 
-  addPlan(date: number, month: number, plan: string, description: string, isCompleted: boolean): void {
+  addPlan(planInfo: Plan, dateInfo: DateBlock): void {
     const blocks = [...this.blocks()];
 
-    let block = blocks.find(block => block.date === date && block.month === month && block.year === YEAR);
+    let block = blocks.find(block => block.date === dateInfo.date && block.month === dateInfo.month && block.year === YEAR);
 
     if (!block) {
-      block = { id: crypto.randomUUID(), date, month, year: YEAR, plans: []};
+      block = { 
+        id: dateInfo.id, 
+        date: dateInfo.date, 
+        month: dateInfo.month, 
+        year: YEAR, 
+        plans: [],
+      };
       blocks.push(block);
     }
 
-    block.plans.push({ id: crypto.randomUUID(), title: plan, description: '', completed: isCompleted })
+    block.plans.push({ 
+      id: planInfo.id, 
+      title: planInfo.title, 
+      type: planInfo.type, 
+      description: planInfo.description, 
+      color: planInfo.color, 
+      time: planInfo.time,
+      completed: false, 
+    })
     this.saveDateBlocks(blocks);
   }
 
