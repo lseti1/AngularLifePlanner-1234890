@@ -6,7 +6,7 @@ import { OrdinalPipePipe } from '../../pipes/ordinal-pipe-pipe';
 import { DateBlock, LocalStorageService } from '../../services/local-storage-service';
 import { Plan } from '../../services/local-storage-service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faCalendarTimes, faCheckCircle, faCircleXmark, } from '@fortawesome/free-solid-svg-icons';
+import { faBookmark, faCalendarTimes, faCheckCircle, faCircleXmark, } from '@fortawesome/free-solid-svg-icons';
 import { faCalendarPlus, faCheckCircle as faCheckCircleRegular } from '@fortawesome/free-regular-svg-icons';
 import { YEAR } from '../../app';
 
@@ -27,6 +27,7 @@ export class SelectionView {
   public faCalendarAdd = faCalendarPlus;
   public faCalendarFinished = faCalendarTimes;
   public faDelete = faCircleXmark;
+  public faBookmark = faBookmark;
   public selectedDatePlans = computed(() => this.updateSelectedDatePlans());
   public plan: string = '';
   public selectionViewType = signal<selectionViewType>('viewing');
@@ -76,7 +77,7 @@ export class SelectionView {
     const planInfo: Plan = {
       id: crypto.randomUUID(),
       title: plan,
-      type: 'General',
+      type: 'Plan',
       description: '', 
       time: 'Example Time',
       color: '#95a5a6',

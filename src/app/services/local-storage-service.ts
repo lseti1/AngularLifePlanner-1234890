@@ -2,7 +2,7 @@ import { Injectable, signal } from '@angular/core';
 import { CalendarService } from './calendar-service';
 import { YEAR } from '../app';
  
-export type PlanType = 'General' | 'Work' | 'Personal' | 'Event'; // Matched exactly with colors below
+export type PlanType = 'Plan' | 'Work' | 'Personal' | 'Event'; // Matched exactly with colors below
 export type PlanColor = '#95a5a6' | '#2ecc71' | '#3498db' | '#e67e22'; // Grey, Green, Blue, Orange
 
 export interface Plan {
