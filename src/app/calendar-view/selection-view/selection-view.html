@@ -1,6 +1,6 @@
 <div class="absolute flex items-center left-0 top-0 w-full h-full justify-center bg-black/5">
-    <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="relative flex flex-col justify-start items-start bg-white w-[50%] h-[55%] shadow-sm p-8 gap-4">
-        <div class="flex w-full justify-between items-center">
+    <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="relative flex flex-col justify-start items-start bg-white w-[50%] h-[55%] shadow-sm p-8 gap-1">
+        <div class="flex w-full justify-between items-center border-b-4 border-blue-800 py-1">
             <div>
                 <h1 class="text-xl">{{ months[selectedMonthIndex] }} {{ selectedDateIndex | ordinalPipe }} </h1>
                 @if (selectedDatePlans().length > 0) {
@@ -9,7 +9,7 @@
                     <p class="text-gray-400 text-sm">Start adding plans by pressing the + icon.</p>
                 }
             </div>
-            <fa-icon [icon]="selectionViewType() === 'adding' ? faCalendarFinished : faCalendarAdd"  [ngClass]="{'hidden' : validSelectedPlan(), 'text-blue-600' : selectionViewType() !== 'adding' }" (click)="toggleSelectionView('adding')" class="text-2xl cursor-pointer"></fa-icon>
+            <fa-icon [icon]="selectionViewType() === 'adding' ? faCalendarFinished : faCalendarAdd" (click)="toggleSelectionView('adding')" class="text-2xl cursor-pointer text-blue-800"></fa-icon>
         </div>
         <div class="w-full overflow-auto h-full">
             <ul class="flex flex-col break-words w-full gap-1 h-full">
@@ -41,12 +41,28 @@
                     }
             </ul>
         </div>
-        <div [ngClass]="{'hidden' : selectionViewType() !== 'adding'}" class="w-full flex flex-row gap-2">
-            <div class="flex relative border w-full">
-                <input [(ngModel)]="plan" name="planText" id="planText" type="text" class="bg-white w-full px-2" placeholder="Add Plan Here..." maxlength="50"/>
-                <fa-icon [icon]="faDelete" [ngClass]="{'hidden' : plan === '' }" type="button" class="flex absolute items-center justify-end w-full h-full px-2 cursor-pointer" (click)="onClear()">X</fa-icon>
+        <div [ngClass]="{'hidden' : selectionViewType() !== 'adding'}" class="w-full flex flex-col ">
+            <div class="w-full flex flex-row items-center gap-1 border-b-2 text-white bg-blue-800 py-1 text-semibold px-2">
+                <fa-icon [icon]="faCalendarAlt" class="text-xl"></fa-icon>
+                <p>New Plan Info:</p>
             </div>
-            <fa-icon [icon]="faCalendarAdd" [ngClass]="{'opacity-20 pointer-events-none' : plan === '' }" (click)="onAddPlan(selectedDateIndex, selectedMonthIndex, plan)" class="text-2xl cursor-pointer text-blue-600"></fa-icon>
+            <div class="flex flex-row gap-2 py-1 px-1 bg-gray-100 border">
+                <div class="flex flex-col relative w-full gap-2 ">
+                    <div class="flex flex-row gap-2">
+                        <input [(ngModel)]="planTitle" name="planText" id="planText" type="text" class="bg-white border w-full px-2 py-1" placeholder="Plan Title" maxlength="50"/>
+                        <select [(ngModel)]="planType" name="planType" id="planType" class="bg-white border px-2 py-1 cursor-pointer">
+                            @for (option of planTypeOptions; track $index) {
+                                <option [value]="option">{{ option }}</option>
+                            }
+                        </select>
+                    </div>
+                    <input [(ngModel)]="planDescription" name="planDescription" id="planDescription" type="textbox" class="bg-white border w-full px-2 py-1 " placeholder="Plan Description" maxlength="50"/>
+                </div>
+                <div class="flex flex-col items-center justify-between">
+                    <fa-icon [icon]="faDelete" [ngClass]="{'opacity-0' : planTitle === '' }" type="button" class="flex text-xl items-center justify-end cursor-pointer" (click)="onClear()">X</fa-icon>
+                    <fa-icon [icon]="faCalendarAdd" [ngClass]="{'opacity-20 pointer-events-none' : planTitle === '' }" (click)="onAddPlan(selectedDateIndex, selectedMonthIndex, planTitle, planDescription, planType)" class="text-2xl cursor-pointer text-blue-800"></fa-icon>
+                </div>
+            </div>
         </div>
         <button type="submit" class="absolute top-2 right-4 font-semibold">X</button>
     </form>
