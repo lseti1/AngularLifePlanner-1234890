@@ -3,10 +3,11 @@ import { Component, computed, Input, OnInit, signal } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CalendarService } from '../../services/calendar-service';
 import { OrdinalPipePipe } from '../../pipes/ordinal-pipe-pipe';
-import { LocalStorageService, Plan } from '../../services/local-storage-service';
+import { LocalStorageService, Plan, PlanType } from '../../services/local-storage-service';
 import { FaIconComponent } from "@fortawesome/angular-fontawesome";
 import { faCalendar } from '@fortawesome/free-regular-svg-icons';
-import { faList } from '@fortawesome/free-solid-svg-icons';
+import { faBookmark, faList } from '@fortawesome/free-solid-svg-icons';
+import { TYPE_COLOR_MAP } from '../selection-view/selection-view';
 
 @Component({
   selector: 'app-selection-plan-view',
@@ -19,11 +20,17 @@ export class SelectionPlanView implements OnInit {
   public dateBlocks = computed(() => this.localStorageService.blocks());
   public isEditing = signal<boolean>(false);
   public editPlanButtonText = computed(() => this.isEditing() ? "Finish Editing" : "Edit Plan");
-  public plan: string = '' ;
-  public description: string = '';
+  public planTitle: string = '' ;
+  public planDescription: string = '';
+  public planType: PlanType = 'Plan';
   public selectedMonthFirstDayIndex;
   public faCalendar = faCalendar;
   public faDescription = faList;
+  public faBookmark = faBookmark;
+  public faOptions = faList;
+  public colorMap = TYPE_COLOR_MAP;
+
+  public readonly planTypeOptions: PlanType[] = ['Plan', 'Work', 'Personal', 'Event'];
 
   constructor(
     private calendarService: CalendarService,
@@ -34,8 +41,8 @@ export class SelectionPlanView implements OnInit {
 
   ngOnInit() {
     let savedPlan = this.selectedPlanDetails;
-    this.plan = savedPlan.title; 
-    this.description = savedPlan.description;
+    this.planTitle = savedPlan.title; 
+    this.planDescription = savedPlan.description;
   }
 
   get selectedDateIndex(): number {
@@ -60,7 +67,7 @@ export class SelectionPlanView implements OnInit {
 
   onSubmit(planData: NgForm): void {
     this.calendarService.setHasSelectedPlan(false);
-    this.localStorageService.editPlan(this.selectedPlanIndex, this.selectedDateIndex, this.selectedMonthIndex, this.description, this.plan);
+    this.localStorageService.editPlan(this.selectedPlanIndex, this.selectedDateIndex, this.selectedMonthIndex, this.planDescription, this.planTitle);
   }
 
   onEditPlan(): void {

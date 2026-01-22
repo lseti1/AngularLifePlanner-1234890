@@ -1,18 +1,27 @@
 <div class="absolute flex items-center left-0 top-0 w-full h-full justify-center bg-black/5">
-    <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="relative flex flex-col justify-center items-center bg-white w-[50%] shadow-sm px-8 py-6 gap-4">
-        <div class="w-full flex flex-row items-center justify-start gap-2 border-b-2 py-4">
-            <fa-icon class="text-2xl" [icon]="faCalendar"></fa-icon>
+    <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="relative bg-white flex flex-col justify-center items-start w-[45%] shadow-sm px-8 py-6">
+        <div class="w-full flex flex-row items-center justify-start gap-2">
+            <fa-icon [icon]="faCalendar"></fa-icon>
             <div class="flex flex-col w-full">
-                <input class="w-full text-xl" id="plan" name="plan" type="text" [(ngModel)]="plan" maxlength="50" placeholder="Enter Plan"/>
-                <h1 class="text-sm text-gray-400">{{ months[selectedMonthIndex] }} {{ selectedDateIndex | ordinalPipe }} </h1>
+                <input class="w-full" id="planTitle" name="planTitle" type="text" [(ngModel)]="planTitle" maxlength="50" placeholder="Plan Title"/>
+                <h1 class="text-xs text-gray-400">{{ months[selectedMonthIndex] }} {{ selectedDateIndex | ordinalPipe }} </h1>
             </div>
+            <fa-icon class="flex justify-end text-2xl" [icon]="faBookmark" [style.color]="colorMap[planType]"></fa-icon>
         </div>
-        <div class="w-full flex flex-row items-start justify-start gap-2 py-4">
-            <fa-icon class="text-2xl" [icon]="faDescription"></fa-icon>
-            <textarea [rows]="4" maxlength="150" class="w-full resize-none" id="description" name="description" type="text" placeholder="Enter Description" [(ngModel)]="description"></textarea>
+        <div class="w-full flex flex-row items-start justify-start gap-2 border-b-2 py-4">
+            <fa-icon [icon]="faDescription"></fa-icon>
+            <textarea [rows]="4" maxlength="150" class="w-full resize-none" id="planDescription" name="planDescription" type="text" placeholder="Plan Description" [(ngModel)]="planDescription"></textarea>
         </div>
-        <div class="w-full flex flex-row gap-2 items-center justify-center">
-            <button type="submit" class="blue-btn" (click)="onEditPlan()">Save & Close</button>
+        <div class="w-full flex flex-row items-center justify-start gap-2 py-4">
+            <fa-icon [icon]="faOptions"></fa-icon>
+            <select [(ngModel)]="planType" name="planType" id="planType" class="flex bg-gray-100 items-start justify-start bg-white cursor-pointer">
+                @for (option of planTypeOptions; track $index) {
+                    <option [value]="option">{{ option }}</option>
+                }
+            </select>
+        </div>
+        <div class="w-full flex flex-row gap-2 items-center justify-end">
+            <button type="submit" class="blue-btn" (click)="onEditPlan()">Save & Return</button>
         </div>
     </form>
 </div>
