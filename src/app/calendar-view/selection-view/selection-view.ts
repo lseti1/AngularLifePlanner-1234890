@@ -3,14 +3,20 @@ import { Component, computed, Input, OnInit, signal } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CalendarService } from '../../services/calendar-service';
 import { OrdinalPipePipe } from '../../pipes/ordinal-pipe-pipe';
-import { DateBlock, LocalStorageService } from '../../services/local-storage-service';
+import { DateBlock, LocalStorageService, PlanColor, PlanType } from '../../services/local-storage-service';
 import { Plan } from '../../services/local-storage-service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faBookmark, faCalendarTimes, faCheckCircle, faCircleXmark, } from '@fortawesome/free-solid-svg-icons';
-import { faCalendarPlus, faCheckCircle as faCheckCircleRegular } from '@fortawesome/free-regular-svg-icons';
+import { faCalendarAlt, faCalendarPlus, faCheckCircle as faCheckCircleRegular } from '@fortawesome/free-regular-svg-icons';
 import { YEAR } from '../../app';
 
 export type selectionViewType = 'viewing' | 'adding' | 'editing';
+export const TYPE_COLOR_MAP: Record<PlanType, PlanColor> = {
+  'Plan': '#95a5a6',    
+  'Work': '#2ecc71',     
+  'Personal': '#3498db', 
+  'Event': '#e67e22'     
+};
 
 @Component({
   selector: 'app-selection-view',
@@ -26,16 +32,21 @@ export class SelectionView {
   public faCheckCircleRegular = faCheckCircleRegular;
   public faCalendarAdd = faCalendarPlus;
   public faCalendarFinished = faCalendarTimes;
+  public faCalendarAlt = faCalendarAlt;
   public faDelete = faCircleXmark;
   public faBookmark = faBookmark;
   public selectedDatePlans = computed(() => this.updateSelectedDatePlans());
-  public plan: string = '';
+  public planTitle: string = '';
+  public planDescription: string = '';
+  public planType: PlanType = "Plan";
   public selectionViewType = signal<selectionViewType>('viewing');
   public AddPlansText = computed(() => this.selectionViewType() !== 'adding' ? 'Add Plans' : 'Finish Adding');
   public dateBlocks = computed(() => this.localStorageService.blocks());
   public todaysDate = computed(() => this.calendarService.currentDate);
   public validSelectedPlan = computed(() => this.isPastMonthDay());
   public currentPlanIndex: number = 0;
+
+  public readonly planTypeOptions: PlanType[] = ['Plan', 'Work', 'Personal', 'Event'];
 
   constructor(
     private calendarService: CalendarService,
@@ -65,7 +76,9 @@ export class SelectionView {
   }
 
   onClear(): void {
-    this.plan = '';
+    this.planTitle = '';
+    this.planDescription ='';
+    this.planType = 'Plan';
   }
 
   onSubmit(formData: NgForm): void {
@@ -73,14 +86,14 @@ export class SelectionView {
     this.calendarService.setHasSelectedDate(false);
   }
 
-  onAddPlan(date: number, month: number, plan: string): void {
+  onAddPlan(date: number, month: number, plan: string, description: string, type: PlanType): void {
     const planInfo: Plan = {
       id: crypto.randomUUID(),
       title: plan,
-      type: 'Plan',
-      description: '', 
+      type: type ?? 'Plan',
+      description: description ?? '', 
       time: 'Example Time',
-      color: '#95a5a6',
+      color: TYPE_COLOR_MAP[type],
       completed: false,
     };
 
@@ -93,7 +106,7 @@ export class SelectionView {
     };
 
     this.localStorageService.addPlan(planInfo, dateInfo);
-    this.plan = '';
+    this.onClear();
   }
 
   onMarkPlanComplete(ID: string, date: number, month: number, e: Event): void {
