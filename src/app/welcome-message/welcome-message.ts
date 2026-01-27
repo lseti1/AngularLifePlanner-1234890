@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output, signal } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import { SettingsService } from '../services/settings-service';
 
 @Component({
   selector: 'app-welcome-message',
@@ -9,21 +10,13 @@ import { faGithub } from '@fortawesome/free-brands-svg-icons';
   styleUrl: './welcome-message.css'
 })
 export class WelcomeMessage {
-  public isVisible = signal<boolean>(true);
   public faGithub = faGithub;
-  @Output() isWelcomeMessageVisible = new EventEmitter<boolean>();
 
-  ngOnInit(): void {
-    const seen = localStorage.getItem('welcomeSeen');
-    this.isVisible.set(!seen);
-    if (seen) {
-      this.isWelcomeMessageVisible.emit(false);
-    }
-  }
+  constructor (
+    private settingsService: SettingsService
+  ) {}
 
   onClose(): void {
-    localStorage.setItem('welcomeSeen', 'true');
-    this.isVisible.set(false);
-    this.isWelcomeMessageVisible.emit(false);
+    this.settingsService.setIsWelcomeMessage(false);
   }
 }

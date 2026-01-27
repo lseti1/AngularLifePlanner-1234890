@@ -4,9 +4,10 @@
     <app-side-panel class="min-w-[30%] overflow-auto"/>
     <app-calendar-view class="min-w-[70%] overflow-auto"/>
   </div>
-  @if (isWelcomeMessage) {
-  <app-welcome-message (isWelcomeMessageVisible)="setIsWelcomeMessage($event)" />
-  } @else if (isSettings()) {
-  <app-settings />
+  @if (isWelcomeMessage()) {
+    <app-welcome-message />
+  } 
+  @if (isSettings()) {
+    <app-settings />
   }
 </div>
