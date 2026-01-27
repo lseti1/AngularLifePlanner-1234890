@@ -18,14 +18,21 @@ export const YEAR = new Date().getFullYear();
 })
 export class App {
   protected readonly title = signal('lifePlanner');
-  public isWelcomeMessage: boolean = true;
-  public isSettings = computed(() => this.settingsService.isSettings())
+  public isWelcomeMessage = computed(() => this.settingsService.isWelcomeMessage());
+  public isSettings = computed(() => this.settingsService.isSettings());
 
   constructor(
     private settingsService: SettingsService
   ) {}
 
-  setIsWelcomeMessage(value: boolean): void {
-    this.isWelcomeMessage = value;
+
+  ngOnInit(): void {
+    const seen = localStorage.getItem('welcomeSeen');
+    if (seen) {
+      this.settingsService.setIsWelcomeMessage(false);
+    } else {
+      this.settingsService.setIsWelcomeMessage(true);
+      localStorage.setItem('welcomeSeen', 'true');
+    }
   }
 }

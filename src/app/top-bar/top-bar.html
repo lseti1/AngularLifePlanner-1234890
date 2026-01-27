@@ -2,10 +2,7 @@
     <div class="flex justify-between h-full w-full px-8 py-2">
         <div class="flex flex-row justify-center items-center gap-4">
             <button class="font-semibold text-shadow pointer-events-none">Life Planner</button>
-            <!-- <p class="text-2xl">{{ currentDate | date: 'MMMM' }} {{ currentDate.getDate() | ordinalPipe }} </p> -->
-        </div>
-        <div class="flex flex-row justify-center items-center ">
-            <!-- <fa-icon [icon]="faUser" class="text-2xl hover:text-white/70 cursor-pointer"></fa-icon> -->
+            <fa-icon [icon]="faInfo" class="opacity-60 hover:opacity-100 cursor-pointer" (click)="onInfoClick()"></fa-icon>
         </div>
     </div>
     

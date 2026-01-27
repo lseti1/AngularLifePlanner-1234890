@@ -1,23 +1,29 @@
-import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core'; 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faInfoCircle, faUser } from '@fortawesome/free-solid-svg-icons';
 import { CalendarService } from '../services/calendar-service';
-import { OrdinalPipePipe } from '../pipes/ordinal-pipe-pipe';
+import { SettingsService } from '../services/settings-service';
 
 @Component({
   selector: 'app-top-bar',
-  imports: [DatePipe, FontAwesomeModule, OrdinalPipePipe],
+  imports: [FontAwesomeModule],
   templateUrl: './top-bar.html',
   styleUrl: './top-bar.css'
 })
 export class TopBar {
   public faUser = faUser;
+  public faInfo = faInfoCircle;
   public currentDate: Date;
 
   constructor(
-    private calendarService: CalendarService
+    private calendarService: CalendarService,
+    private settingsService: SettingsService
   ) {
     this.currentDate = this.calendarService.getCurrentDate();
+  }
+
+  onInfoClick(): void {
+    console.log(this.settingsService.isWelcomeMessage());
+    this.settingsService.setIsWelcomeMessage(true);
   }
 }

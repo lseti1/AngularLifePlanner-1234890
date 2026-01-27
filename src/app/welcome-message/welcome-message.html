@@ -1,30 +1,26 @@
 <div class="fixed inset-0 flex justify-center items-center bg-black/20">
-    <div class="relative flex flex-col gap-4 min-w-[45%] max-w-[55%] min-h-[50%] bg-white justify-center items-center shadow-full rounded text-center p-8 shadow-sm">
+    <div class="relative flex flex-col gap-4 max-w-[40%] h-auto bg-white justify-center items-center shadow-full rounded text-center p-8 shadow-sm">
         <div>
-            <h1 class="text-lg font-semibold">Welcome to Life Planner</h1>
-            <p class="">Plan your days, week or months ahead and see what's coming up.</p>
+            <h1 class="text-2xl font-semibold">Life Planner</h1>
         </div>
         <div>
-            <p class="font-semibold">Features include:</p>
+            <p class="font-semibold text-left">Features include:</p>
             <ul class="list-disc list-inside text-left">
                 <li>Add, edit, and delete plans</li>
                 <li>Side panel with easy access to various key dates</li>
                 <li>Add multiple plans to each day and track whether they're complete</li>
-                <li>and more!</li>
             </ul>
         </div>
 
         <div class="bg-gray-100 p-4 rounded border border-gray-300 text-left text-sm flex flex-col w-full">
-            <p class="text-center"><strong>Note:</strong> This is a demo application. Data is saved in your browser's local storage and can be cleared anytime via the settings. 
-                Not all features may work as intended, and this is not a full-fledged planning platform. Best Viewed in Full Screen on a PC.</p>
+            <p class="text-center"><strong>Note:</strong> This is a demo application using your browser's local storage and can be cleared anytime via the settings. 
+                This app is intended to showcase programming skills and is best viewed on a PC.</p>
             <b class="font-bold text-red-500 w-full text-center">(Do not store any personal information while using this app)</b>
         </div>
-        <p>Get started below to explore!</p>
-        <button (click)="onClose()" class="blue-btn">Start</button>
+        <button (click)="onClose()" class="blue-btn">Close</button>
 
         <a class="absolute top-2 right-2" href="https://github.com/lseti1/AngularLifePlanner-1234890" target="_blank" rel="noopener noreferrer">
             <fa-icon [icon]="faGithub" class="text-4xl"></fa-icon>
         </a>
-        <p></p>
     </div>
 </div>
