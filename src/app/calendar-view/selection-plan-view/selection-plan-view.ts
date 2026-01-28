@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, Input, OnInit, signal } from '@angular/core';
+import { Component, computed, input, Input, OnInit, signal } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CalendarService } from '../../services/calendar-service';
 import { OrdinalPipePipe } from '../../pipes/ordinal-pipe-pipe';
@@ -16,7 +16,7 @@ import { TYPE_COLOR_MAP } from '../selection-view/selection-view';
   styleUrl: './selection-plan-view.css'
 })
 export class SelectionPlanView implements OnInit {
-  @Input() months: string[] = [];
+  months = input<string[]>([]);
   public dateBlocks = computed(() => this.localStorageService.blocks());
   public isEditing = signal<boolean>(false);
   public editPlanButtonText = computed(() => this.isEditing() ? "Finish Editing" : "Edit Plan");
