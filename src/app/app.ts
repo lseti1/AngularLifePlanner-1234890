@@ -20,11 +20,11 @@ export class App {
   protected readonly title = signal('lifePlanner');
   public isWelcomeMessage = computed(() => this.settingsService.isWelcomeMessage());
   public isSettings = computed(() => this.settingsService.isSettings());
+  public isSidebar = computed(() => this.settingsService.isSidebar());
 
   constructor(
     private settingsService: SettingsService
   ) {}
-
 
   ngOnInit(): void {
     const seen = localStorage.getItem('welcomeSeen');

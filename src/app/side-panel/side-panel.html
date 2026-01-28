@@ -1,8 +1,15 @@
 <div class="w-full h-full border-r bg-gray-100/50">
-    <div class="h-full w-full grid grid-rows-[8%_27%_27%_38%]">
-        <app-search-bar />
-        <app-today />
-        <app-tomorrow />
-        <app-filtered-plans />
-    </div>
+    @if (isSidebar()) {
+        <div class="h-full w-full grid grid-rows-[8%_27%_27%_38%]">
+            <app-search-bar [isSidebar]="true"/>
+            <app-today />
+            <app-tomorrow />
+            <app-filtered-plans />
+        </div>
+    } @else {
+        <div>   
+            <app-search-bar [isSidebar]="false"/>
+        </div>
+        
+    }
 </div>
