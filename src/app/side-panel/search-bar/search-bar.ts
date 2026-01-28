@@ -2,11 +2,10 @@ import { Component, input } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faBarsProgress, faGear, faUser } from '@fortawesome/free-solid-svg-icons';
 import { SettingsService } from '../../services/settings-service';
-import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-search-bar',
-  imports: [FontAwesomeModule, NgClass],
+  imports: [FontAwesomeModule],
   templateUrl: './search-bar.html',
   styleUrl: './search-bar.css'
 })

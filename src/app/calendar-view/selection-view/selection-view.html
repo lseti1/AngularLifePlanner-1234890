@@ -2,7 +2,7 @@
     <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="relative flex flex-col justify-start items-start bg-white w-[50%] h-[55%] shadow-sm p-8 gap-1">
         <div class="flex w-full justify-between items-center border-b-4 border-blue-800 py-1">
             <div>
-                <h1 class="text-xl">{{ months[selectedMonthIndex] }} {{ selectedDateIndex | ordinalPipe }} </h1>
+                <h1 class="text-xl">{{ months()[selectedMonthIndex] }} {{ selectedDateIndex | ordinalPipe }} </h1>
                 @if (selectedDatePlans().length > 0) {
                     <p class="text-gray-400 text-sm">{{ selectedDatePlans().length }} Total Plans</p>
                 } @else {

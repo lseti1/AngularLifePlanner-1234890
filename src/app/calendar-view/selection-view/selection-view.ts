@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, Input, OnInit, signal } from '@angular/core';
+import { Component, computed, input, Input, OnInit, signal } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CalendarService } from '../../services/calendar-service';
 import { OrdinalPipePipe } from '../../pipes/ordinal-pipe-pipe';
@@ -25,7 +25,7 @@ export const TYPE_COLOR_MAP: Record<PlanType, PlanColor> = {
   styleUrl: './selection-view.css'
 })
 export class SelectionView {
-  @Input() months: string[] = [];
+  months = input<string[]>([]);
 
   public selectedMonthFirstDayIndex;
   public faCheckCircle = faCheckCircle;
